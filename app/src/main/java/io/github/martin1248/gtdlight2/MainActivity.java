@@ -9,16 +9,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.github.martin1248.gtdlight2.model.NoteEntity;
+import io.github.martin1248.gtdlight2.utilities.SampleData;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+
+    private List<NoteEntity> notesData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        notesData.addAll(SampleData.getNotes());
+        for (NoteEntity note :
+                notesData) {
+            Log.i("GtdLight", note.toString());
+        }
     }
 
     private void initRecyclerView() {
