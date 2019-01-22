@@ -9,6 +9,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+// Note: When 'LiveData' is returned then 'Room' takes care of the background threading
+//       in any other return case (returning raw data or integer) then I have to handle background threading explicitly!
 @Dao
 public interface NoteDao {
 
