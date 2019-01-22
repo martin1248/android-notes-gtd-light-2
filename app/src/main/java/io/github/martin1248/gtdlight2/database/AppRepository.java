@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import androidx.lifecycle.LiveData;
 import io.github.martin1248.gtdlight2.utilities.SampleData;
 
 public class AppRepository {
     private static AppRepository ourInstance;
 
-    public List<NoteEntity> mNotes;
+    public LiveData<List<NoteEntity>> mNotes;
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();
 
@@ -24,17 +25,15 @@ public class AppRepository {
     }
 
     private AppRepository(Context context) {
-        mNotes  = SampleData.getNotes();
         mDb = AppDatabase.getInstance(context);
+        mNotes  = getAllNotes();
     }
 
     public void addSampleData() {
-        Log.i("GtdLight", "AppRepository.addSampleData");
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mDb.noteDao().insertAll(SampleData.getNotes());
-            }
-        });
+        executor.execute(() -> mDb.noteDao().insertAll(SampleData.getNotes()));
+    }
+
+    private LiveData<List<NoteEntity>> getAllNotes() {
+        return mDb.noteDao().getAll();
     }
 }
