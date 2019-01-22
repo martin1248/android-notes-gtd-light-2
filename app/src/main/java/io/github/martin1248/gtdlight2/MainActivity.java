@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -12,6 +13,7 @@ import butterknife.OnClick;
 import io.github.martin1248.gtdlight2.database.NoteEntity;
 import io.github.martin1248.gtdlight2.ui.NotesAdapter;
 import io.github.martin1248.gtdlight2.utilities.SampleData;
+import io.github.martin1248.gtdlight2.viewmodel.MainViewModel;
 
 import android.util.Log;
 import android.view.Menu;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<NoteEntity> notesData = new ArrayList<>();
     private NotesAdapter mAdapter;
+    private MainViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +45,18 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
+        initviewModel();
         initRecyclerView();
 
-        notesData.addAll(SampleData.getNotes());
+        notesData.addAll(mViewModel.mNotes);
         for (NoteEntity note :
                 notesData) {
             Log.i("GtdLight", note.toString());
         }
+    }
+
+    private void initviewModel() {
+        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
     }
 
     private void initRecyclerView() {
