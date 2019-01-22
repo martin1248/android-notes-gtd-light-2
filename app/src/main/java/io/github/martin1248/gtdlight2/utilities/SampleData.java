@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import io.github.martin1248.gtdlight2.model.NoteEntity;
+import io.github.martin1248.gtdlight2.database.NoteEntity;
 
 public class SampleData {
 

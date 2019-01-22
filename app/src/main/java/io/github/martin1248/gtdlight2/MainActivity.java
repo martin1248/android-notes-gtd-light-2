@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.github.martin1248.gtdlight2.model.NoteEntity;
+import io.github.martin1248.gtdlight2.database.NoteEntity;
 import io.github.martin1248.gtdlight2.ui.NotesAdapter;
 import io.github.martin1248.gtdlight2.utilities.SampleData;
 

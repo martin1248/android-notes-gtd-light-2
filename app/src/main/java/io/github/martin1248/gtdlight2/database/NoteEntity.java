@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.model;
+package io.github.martin1248.gtdlight2.database;
 
 import java.util.Date;
 
@@ -17,7 +17,7 @@ public class NoteEntity {
     public NoteEntity() {
 
     }
-    
+
     public NoteEntity(int id, Date date, String text) {
         this.id = id;
         this.date = date;

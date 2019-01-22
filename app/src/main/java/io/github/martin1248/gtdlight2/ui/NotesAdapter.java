@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.R;
-import io.github.martin1248.gtdlight2.model.NoteEntity;
+import io.github.martin1248.gtdlight2.database.NoteEntity;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
