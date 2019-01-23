@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.database.NoteEntity;
 import io.github.martin1248.gtdlight2.viewmodel.EditorViewModel;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -60,5 +61,24 @@ public class EditorActivity extends AppCompatActivity {
             int noteId = extras.getInt(NOTE_ID_KEY);
             mViewModel.loadData(noteId);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            saveAndReturn();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        saveAndReturn();
+    }
+
+    private void saveAndReturn() {
+        mViewModel.saveNote(mTextview.getText().toString());
+        finish();
     }
 }
