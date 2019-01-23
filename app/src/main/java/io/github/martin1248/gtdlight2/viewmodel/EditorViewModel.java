@@ -1,7 +1,9 @@
 package io.github.martin1248.gtdlight2.viewmodel;
 
 import android.app.Application;
+import android.text.TextUtils;
 
+import java.util.Date;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -36,9 +38,14 @@ public class EditorViewModel extends AndroidViewModel {
         NoteEntity note = mLiveNote.getValue();
 
         if (note == null) {
-
+            // New note
+            if (TextUtils.isEmpty(noteText.trim())) {
+                return;
+            }
+            note = new NoteEntity(new Date(), noteText.trim());
         } else {
-            note.setText(noteText);
+            // Existing/Editing note
+            note.setText(noteText.trim());
         }
         mRepository.insertNote(note);
     }
