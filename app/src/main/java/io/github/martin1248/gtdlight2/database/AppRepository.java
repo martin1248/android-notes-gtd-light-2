@@ -1,7 +1,6 @@
 package io.github.martin1248.gtdlight2.database;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.List;
 import java.util.concurrent.Executor;

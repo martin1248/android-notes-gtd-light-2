@@ -1,9 +1,10 @@
 package io.github.martin1248.gtdlight2;
 
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,12 +14,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.database.NoteEntity;
 import io.github.martin1248.gtdlight2.viewmodel.EditorViewModel;
-
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import static io.github.martin1248.gtdlight2.utilities.Constants.EDITING_KEY;
 import static io.github.martin1248.gtdlight2.utilities.Constants.NOTE_ID_KEY;
