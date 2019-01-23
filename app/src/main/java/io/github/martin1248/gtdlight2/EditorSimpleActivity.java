@@ -79,12 +79,8 @@ public class EditorSimpleActivity extends AppCompatActivity {
             mViewModel.loadData(noteId);
         }
 
-
-        ArrayList<String> array = new ArrayList<String>();
-        for (GtdState state: GtdState.values()) {
-            array.add(state.toString());
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, GtdState.allStates);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerGtdState.setAdapter(adapter);
     }

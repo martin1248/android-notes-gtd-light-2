@@ -1,5 +1,7 @@
 package io.github.martin1248.gtdlight2.utilities;
 
+import java.util.ArrayList;
+
 public enum GtdState {
     INBOX ("Inbox"),
     NEXT_ACTIONS ("Next actions"),
@@ -11,6 +13,18 @@ public enum GtdState {
     DONE ("Done");
 
     private final String name;
+
+    public static final ArrayList<String> allStates = new ArrayList<>();
+    static {
+        allStates.add(INBOX.toString());
+        allStates.add(NEXT_ACTIONS.toString());
+        allStates.add(CALENDER.toString());
+        allStates.add(WAITING_FOR.toString());
+        allStates.add(SOME_DAY.toString());
+        allStates.add(REFERENCE.toString());
+        allStates.add(TRASH.toString());
+        allStates.add(DONE.toString());
+    }
 
     private GtdState(String s) {
         name = s;
