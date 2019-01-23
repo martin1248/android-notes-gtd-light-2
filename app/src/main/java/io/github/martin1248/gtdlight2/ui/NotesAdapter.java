@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.github.martin1248.gtdlight2.EditorActivity;
 import io.github.martin1248.gtdlight2.EditorSimpleActivity;
 import io.github.martin1248.gtdlight2.R;
 import io.github.martin1248.gtdlight2.database.NoteEntity;
