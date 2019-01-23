@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import static io.github.martin1248.gtdlight2.utilities.Constants.EDITING_KEY;
 import static io.github.martin1248.gtdlight2.utilities.Constants.NOTE_ID_KEY;
 
 public class EditorActivity extends AppCompatActivity {
@@ -28,7 +29,7 @@ public class EditorActivity extends AppCompatActivity {
     TextView mTextview;
 
     private EditorViewModel mViewModel;
-    private boolean mNewNote;
+    private boolean mNewNote, mEditing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,10 @@ public class EditorActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        if (savedInstanceState != null) {
+            mEditing = savedInstanceState.getBoolean(EDITING_KEY);
+        }
+
         initViewModel();
     }
 
@@ -49,7 +54,9 @@ public class EditorActivity extends AppCompatActivity {
         mViewModel.mLiveNote.observe(this, new Observer<NoteEntity>() {
             @Override
             public void onChanged(NoteEntity noteEntity) {
-                mTextview.setText(noteEntity.getText());
+                if (noteEntity != null && !mEditing) {
+                    mTextview.setText(noteEntity.getText());
+                }
             }
         });
 
@@ -94,5 +101,11 @@ public class EditorActivity extends AppCompatActivity {
     private void saveAndReturn() {
         mViewModel.saveNote(mTextview.getText().toString());
         finish();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(EDITING_KEY, true);
+        super.onSaveInstanceState(outState);
     }
 }
