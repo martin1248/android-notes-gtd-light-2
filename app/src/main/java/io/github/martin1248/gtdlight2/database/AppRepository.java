@@ -40,4 +40,8 @@ public class AppRepository {
     public void deleteAllNotes() {
         executor.execute(() -> mDb.noteDao().deleteAll());
     }
+
+    public NoteEntity getNoteById(int noteId) {
+        return mDb.noteDao().getNoteById(noteId);
+    }
 }

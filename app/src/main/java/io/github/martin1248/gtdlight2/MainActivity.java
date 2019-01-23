@@ -41,15 +41,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
         initRecyclerView();
-        initviewModel();
+        initViewModel();
     }
 
-    private void initviewModel() {
+    private void initViewModel() {
 
         final Observer<List<NoteEntity>> notesObserver = new Observer<List<NoteEntity>>() {
             @Override
