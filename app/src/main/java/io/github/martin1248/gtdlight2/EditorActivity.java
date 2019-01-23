@@ -79,6 +79,9 @@ public class EditorActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             saveAndReturn();
             return true;
+        } else if (item.getItemId() == R.id.action_delete) {
+            mViewModel.deleteNote();
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
