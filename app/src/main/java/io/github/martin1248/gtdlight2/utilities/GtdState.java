@@ -1,6 +1,6 @@
 package io.github.martin1248.gtdlight2.utilities;
 
-public enum GtdStates {
+public enum GtdState {
     INBOX ("Inbox"),
     NEXT_ACTIONS ("Next actions"),
     CALENDER ("Calender"),
@@ -12,7 +12,7 @@ public enum GtdStates {
 
     private final String name;
 
-    private GtdStates(String s) {
+    private GtdState(String s) {
         name = s;
     }
 
