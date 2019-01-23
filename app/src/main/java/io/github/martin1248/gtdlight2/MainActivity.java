@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     void fabClickHandler() {
-        Intent intent = new Intent(this, EditorActivity.class);
+        Intent intent = new Intent(this, EditorSimpleActivity.class);
         startActivity(intent);
     }
 

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.EditorActivity;
+import io.github.martin1248.gtdlight2.EditorSimpleActivity;
 import io.github.martin1248.gtdlight2.R;
 import io.github.martin1248.gtdlight2.database.NoteEntity;
 
@@ -49,7 +50,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, EditorActivity.class);
+                Intent intent = new Intent(mContext, EditorSimpleActivity.class);
                 intent.putExtra(NOTE_ID_KEY, note.getId());
                 mContext.startActivity(intent);
             }
