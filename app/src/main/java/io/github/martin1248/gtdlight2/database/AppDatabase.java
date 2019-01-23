@@ -6,10 +6,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
 // Note: To see what Room generates search for "AppDatabase_Impl.java"
-@Database(entities = {NoteEntity.class}, version = 1)
+@Database(entities = {NoteEntity.class}, version = 2)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "AppDatabase.db";
@@ -23,7 +25,7 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (LOCK) {
                 if (instance == null) {
                     instance = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, DATABASE_NAME).build();
+                            AppDatabase.class, DATABASE_NAME).fallbackToDestructiveMigration().build();
                 }
             }
         }

@@ -65,6 +65,7 @@ public class EditorSimpleActivity extends AppCompatActivity {
             public void onChanged(@Nullable NoteEntity noteEntity) {
                 if (noteEntity != null && !mEditing) {
                     mTextView.setText(noteEntity.getText());
+                    mSpinnerGtdState.setSelection(noteEntity.getState());
                 }
             }
         });
@@ -112,7 +113,7 @@ public class EditorSimpleActivity extends AppCompatActivity {
     }
 
     private void saveAndReturn() {
-        mViewModel.saveNote(mTextView.getText().toString());
+        mViewModel.saveNote(mTextView.getText().toString(), mSpinnerGtdState.getSelectedItemPosition());
         finish();
     }
 

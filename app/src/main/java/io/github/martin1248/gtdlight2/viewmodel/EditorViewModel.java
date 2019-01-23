@@ -34,7 +34,7 @@ public class EditorViewModel extends AndroidViewModel {
         });
     }
 
-    public void saveNote(String noteText) {
+    public void saveNote(String noteText, int noteState) {
         NoteEntity note = mLiveNote.getValue();
 
         if (note == null) {
@@ -42,10 +42,11 @@ public class EditorViewModel extends AndroidViewModel {
             if (TextUtils.isEmpty(noteText.trim())) {
                 return;
             }
-            note = new NoteEntity(new Date(), noteText.trim());
+            note = new NoteEntity(new Date(), noteText.trim(), noteState);
         } else {
             // Existing/Editing note
             note.setText(noteText.trim());
+            note.setState(noteState);
         }
         mRepository.insertNote(note);
     }
