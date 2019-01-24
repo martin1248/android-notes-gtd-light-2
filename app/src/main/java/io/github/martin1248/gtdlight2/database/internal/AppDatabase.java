@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.database;
+package io.github.martin1248.gtdlight2.database.internal;
 
 import android.content.Context;
 
@@ -6,8 +6,6 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import androidx.room.migration.Migration;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
 // Note: To see what Room generates search for "AppDatabase_Impl.java"

@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.database;
+package io.github.martin1248.gtdlight2.database.internal;
 
 import java.util.Date;
 
