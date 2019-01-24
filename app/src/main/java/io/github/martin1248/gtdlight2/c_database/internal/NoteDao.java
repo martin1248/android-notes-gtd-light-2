@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.database.internal;
+package io.github.martin1248.gtdlight2.c_database.internal;
 
 import java.util.List;
 

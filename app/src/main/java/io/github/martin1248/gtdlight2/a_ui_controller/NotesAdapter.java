@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.ui;
+package io.github.martin1248.gtdlight2.a_ui_controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,10 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.github.martin1248.gtdlight2.EditorSimpleActivity;
 import io.github.martin1248.gtdlight2.R;
-import io.github.martin1248.gtdlight2.database.AppRepository;
-import io.github.martin1248.gtdlight2.database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.c_database.AppRepository;
+import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 
 import static io.github.martin1248.gtdlight2.utilities.Constants.NOTE_ID_KEY;

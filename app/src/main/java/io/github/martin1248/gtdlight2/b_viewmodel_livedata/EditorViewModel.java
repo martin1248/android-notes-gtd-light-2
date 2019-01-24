@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.viewmodel;
+package io.github.martin1248.gtdlight2.b_viewmodel_livedata;
 
 import android.app.Application;
 import android.text.TextUtils;
@@ -10,8 +10,8 @@ import java.util.concurrent.Executors;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import io.github.martin1248.gtdlight2.database.AppRepository;
-import io.github.martin1248.gtdlight2.database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.c_database.AppRepository;
+import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
 
 public class EditorViewModel extends AndroidViewModel {
 

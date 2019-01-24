@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2;
+package io.github.martin1248.gtdlight2.a_ui_controller;
 
 import android.os.Bundle;
 
@@ -7,9 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import io.github.martin1248.gtdlight2.database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.R;
+import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
-import io.github.martin1248.gtdlight2.viewmodel.EditorViewModel;
+import io.github.martin1248.gtdlight2.b_viewmodel_livedata.EditorViewModel;
 
 import android.view.Menu;
 import android.view.MenuInflater;
