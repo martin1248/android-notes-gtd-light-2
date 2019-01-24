@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +22,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.martin1248.gtdlight2.database.NoteEntity;
 import io.github.martin1248.gtdlight2.ui.NotesAdapter;
+import io.github.martin1248.gtdlight2.utilities.GtdState;
 import io.github.martin1248.gtdlight2.viewmodel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.note_gtd_state)
+    Spinner mSpinnerGtdState;
 
     @OnClick(R.id.fab)
     void fabClickHandler() {
@@ -69,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         mViewModel.mNotes.observe(this, notesObserver);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, GtdState.allStates);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinnerGtdState.setAdapter(adapter);
     }
 
     private void initRecyclerView() {
