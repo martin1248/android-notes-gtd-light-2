@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import io.github.martin1248.gtdlight2.database.NoteEntity;
+import io.github.martin1248.gtdlight2.database.internal.NoteEntity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 import io.github.martin1248.gtdlight2.viewmodel.EditorViewModel;
 
@@ -17,8 +17,6 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
