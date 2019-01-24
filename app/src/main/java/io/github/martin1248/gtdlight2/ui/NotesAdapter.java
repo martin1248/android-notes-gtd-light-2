@@ -2,6 +2,7 @@ package io.github.martin1248.gtdlight2.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.EditorSimpleActivity;
 import io.github.martin1248.gtdlight2.R;
+import io.github.martin1248.gtdlight2.database.AppRepository;
 import io.github.martin1248.gtdlight2.database.NoteEntity;
+import io.github.martin1248.gtdlight2.utilities.GtdState;
 
 import static io.github.martin1248.gtdlight2.utilities.Constants.NOTE_ID_KEY;
 
@@ -25,10 +28,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     private final List<NoteEntity> mNotes;
     private final Context mContext;
+    private AppRepository mRepository;
 
     public NotesAdapter(List<NoteEntity> mNotes, Context mContext) {
         this.mNotes = mNotes;
         this.mContext = mContext;
+        this.mRepository = AppRepository.getInstance(mContext);
     }
 
     @NonNull
@@ -46,16 +51,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         final NoteEntity note = mNotes.get(position);
         holder.mTextView.setText(note.getText());
 
-        /*
         holder.mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, EditorSimpleActivity.class);
-                intent.putExtra(NOTE_ID_KEY, note.getId());
-                mContext.startActivity(intent);
+                note.setState(GtdState.allStates.indexOf(GtdState.DONE.toString()));
+                mRepository.insertNote(note);
             }
         });
-        */
 
         // Note: From https://stackoverflow.com/questions/24885223/why-doesnt-recyclerview-have-onitemclicklistener
         holder.itemView.setOnClickListener(new View.OnClickListener() {
