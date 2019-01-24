@@ -25,6 +25,9 @@ public enum GtdState {
         allStates.add(TRASH.toString());
         allStates.add(DONE.toString());
     }
+    public static int getStateAsPosition(GtdState state) {
+        return GtdState.allStates.indexOf(state.toString());
+    }
 
     private GtdState(String s) {
         name = s;

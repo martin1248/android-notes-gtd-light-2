@@ -23,9 +23,12 @@ public class SampleData {
 
     public static List<NoteEntity> getNotes() {
         List<NoteEntity> notes = new ArrayList<>();
-        notes.add(new NoteEntity(getDate(0), SAMPLE_TEXT_1, 1));
-        notes.add(new NoteEntity(getDate(-1), SAMPLE_TEXT_2, 2));
-        notes.add(new NoteEntity(getDate(-2), SAMPLE_TEXT_3, 3));
+        notes.add(new NoteEntity(getDate(0), SAMPLE_TEXT_1, 0));
+        notes.add(new NoteEntity(getDate(-1), SAMPLE_TEXT_2, 0));
+        notes.add(new NoteEntity(getDate(-2), SAMPLE_TEXT_3, 0));
+        notes.add(new NoteEntity(getDate(-3), "Sample note: Inbox", 0));
+        notes.add(new NoteEntity(getDate(-4), "Sample note: Next Action", 1));
+        notes.add(new NoteEntity(getDate(-5), "Sample note: Calender", 2));
         return notes;
     }
 }

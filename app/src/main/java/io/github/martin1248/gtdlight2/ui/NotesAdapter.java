@@ -54,7 +54,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                note.setState(GtdState.allStates.indexOf(GtdState.DONE.toString()));
+                note.setState(GtdState.getStateAsPosition(GtdState.DONE));
                 mRepository.insertNote(note);
             }
         });
