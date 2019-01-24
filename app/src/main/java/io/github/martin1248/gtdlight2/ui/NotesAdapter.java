@@ -46,7 +46,19 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         final NoteEntity note = mNotes.get(position);
         holder.mTextView.setText(note.getText());
 
+        /*
         holder.mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, EditorSimpleActivity.class);
+                intent.putExtra(NOTE_ID_KEY, note.getId());
+                mContext.startActivity(intent);
+            }
+        });
+        */
+
+        // Note: From https://stackoverflow.com/questions/24885223/why-doesnt-recyclerview-have-onitemclicklistener
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, EditorSimpleActivity.class);
