@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, GtdState.allStates);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerGtdState.setAdapter(adapter);
-        mSpinnerGtdState.setSelection(GtdState.getStateAsPosition(GtdState.NEXT_ACTIONS));
         mSpinnerGtdState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -95,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mViewModel.loadData(mSpinnerGtdState.getSelectedItemPosition());
+        mSpinnerGtdState.setSelection(GtdState.getStateAsPosition(GtdState.NEXT_ACTIONS));
+        reloadData();
     }
 
     private void initRecyclerView() {
@@ -125,9 +125,11 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_sample_data) {
             addSampleData();
+            reloadData();
             return true;
         } else if (id == R.id.action_delete_all) {
             deleteAllNotes();
+            reloadData();
             return true;
         }
 
@@ -140,5 +142,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void addSampleData() {
         mViewModel.addSampleData();
+    }
+
+    public void reloadData() {
+        mViewModel.loadData(mSpinnerGtdState.getSelectedItemPosition());
     }
 }

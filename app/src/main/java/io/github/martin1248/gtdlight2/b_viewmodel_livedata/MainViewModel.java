@@ -1,6 +1,7 @@
 package io.github.martin1248.gtdlight2.b_viewmodel_livedata;
 
 import android.app.Application;
+import android.util.Log;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -17,12 +18,13 @@ public class MainViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<NoteEntity>> mNotes;
     private AppRepository mRepository;
-    private Executor executor = Executors.newSingleThreadExecutor();
+    private Executor executor;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
 
         mRepository = AppRepository.getInstance(application.getApplicationContext());
+        executor = mRepository.getExecutor();
     }
 
     public void addSampleData() {

@@ -65,4 +65,8 @@ public class AppRepository {
     public List<NoteEntity> getNotesByGtdState(int gtdState) {
         return mDb.noteDao().getNotesByGtdState(gtdState);
     }
+
+    public Executor getExecutor() {
+        return executor;
+    }
 }
