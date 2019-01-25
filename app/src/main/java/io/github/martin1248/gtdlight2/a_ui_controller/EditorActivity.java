@@ -26,7 +26,7 @@ import static io.github.martin1248.gtdlight2.utilities.Constants.EDITING_KEY;
 import static io.github.martin1248.gtdlight2.utilities.Constants.NOTE_ID_KEY;
 
 
-public class EditorSimpleActivity extends AppCompatActivity {
+public class EditorActivity extends AppCompatActivity {
 
     @BindView(R.id.note_text)
     TextView mTextView;
@@ -39,7 +39,7 @@ public class EditorSimpleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editor_simple);
+        setContentView(R.layout.activity_editor);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_check);

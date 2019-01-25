@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".a_ui_controller.EditorSimpleActivity"
+            android:name=".a_ui_controller.EditorActivity"
             android:label="@string/title_activity_editor"
             android:parentActivityName=".a_ui_controller.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
