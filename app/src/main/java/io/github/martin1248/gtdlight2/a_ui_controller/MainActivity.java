@@ -2,8 +2,11 @@ package io.github.martin1248.gtdlight2.a_ui_controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -73,12 +76,26 @@ public class MainActivity extends AppCompatActivity {
 
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
-        mViewModel.mNotes.observe(this, notesObserver);
+        mViewModel.getNotes().observe(this, notesObserver);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, GtdState.allStates);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerGtdState.setAdapter(adapter);
+        mSpinnerGtdState.setSelection(GtdState.getStateAsPosition(GtdState.NEXT_ACTIONS));
+        mSpinnerGtdState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mViewModel.loadData(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Nothing is done
+            }
+        });
+
+        mViewModel.loadData(mSpinnerGtdState.getSelectedItemPosition());
     }
 
     private void initRecyclerView() {

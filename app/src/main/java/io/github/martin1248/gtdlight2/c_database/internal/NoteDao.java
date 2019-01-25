@@ -35,4 +35,6 @@ public interface NoteDao {
     @Query("SELECT COUNT(*) FROM notes")
     int getCount();
 
+    @Query("SELECT * FROM notes WHERE state = :state")
+    List<NoteEntity> getNotesByGtdState(int state);
 }

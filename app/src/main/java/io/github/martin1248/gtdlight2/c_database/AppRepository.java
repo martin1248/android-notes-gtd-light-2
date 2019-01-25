@@ -14,7 +14,6 @@ import io.github.martin1248.gtdlight2.utilities.SampleData;
 public class AppRepository {
     private static AppRepository ourInstance;
 
-    public LiveData<List<NoteEntity>> mNotes;
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();
 
@@ -27,7 +26,6 @@ public class AppRepository {
 
     private AppRepository(Context context) {
         mDb = AppDatabase.getInstance(context);
-        mNotes  = getAllNotes();
     }
 
     public void addSampleData() {
@@ -62,5 +60,9 @@ public class AppRepository {
                 mDb.noteDao().deleteNote(note);
             }
         });
+    }
+
+    public List<NoteEntity> getNotesByGtdState(int gtdState) {
+        return mDb.noteDao().getNotesByGtdState(gtdState);
     }
 }
