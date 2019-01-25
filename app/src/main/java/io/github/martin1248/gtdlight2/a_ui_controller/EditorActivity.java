@@ -80,7 +80,7 @@ public class EditorActivity extends AppCompatActivity {
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, GtdState.allStates);
+                android.R.layout.simple_spinner_item, GtdState.getStatesAsStrings());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerGtdState.setAdapter(adapter);
     }

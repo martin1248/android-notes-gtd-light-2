@@ -28,12 +28,13 @@ import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 import io.github.martin1248.gtdlight2.b_viewmodel_livedata.MainViewModel;
 
+import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KEY;
+import static io.github.martin1248.gtdlight2.utilities.Constants.NOTE_ID_KEY;
+
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
-    @BindView(R.id.note_gtd_state)
-    Spinner mSpinnerGtdState;
 
     @OnClick(R.id.fab)
     void fabClickHandler() {
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private List<NoteEntity> notesData = new ArrayList<>();
     private NotesAdapter mAdapter;
     private MainViewModel mViewModel;
+    private GtdState mGtdState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ButterKnife.bind(this);
         initRecyclerView();
@@ -78,24 +81,15 @@ public class MainActivity extends AppCompatActivity {
 
         mViewModel.getNotes().observe(this, notesObserver);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, GtdState.allStates);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinnerGtdState.setAdapter(adapter);
-        mSpinnerGtdState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mViewModel.loadData(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Nothing is done
-            }
-        });
-
-        mSpinnerGtdState.setSelection(GtdState.getStateAsPosition(GtdState.NEXT_ACTIONS));
-        reloadData();
+        Bundle extras = getIntent().getExtras();
+        if (extras == null) {
+            throw new IllegalStateException("Missing GtdState in MainActivity!");
+        } else {
+            int gtdState = extras.getInt(GTD_STATE_ID_KEY);
+            mGtdState = GtdState.states.get(gtdState);
+            setTitle(mGtdState.toString());
+            mViewModel.loadData(gtdState);
+        }
     }
 
     private void initRecyclerView() {
@@ -123,7 +117,11 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_add_sample_data) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        else if (id == R.id.action_add_sample_data) {
             addSampleData();
             reloadData();
             return true;
@@ -145,6 +143,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void reloadData() {
-        mViewModel.loadData(mSpinnerGtdState.getSelectedItemPosition());
+        mViewModel.loadData(GtdState.states.indexOf(mGtdState));
     }
 }

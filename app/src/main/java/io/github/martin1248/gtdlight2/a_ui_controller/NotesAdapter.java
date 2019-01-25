@@ -52,7 +52,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                note.setState(GtdState.getStateAsPosition(GtdState.DONE));
+                note.setState(GtdState.states.indexOf(GtdState.DONE));
                 mRepository.insertNote(note);
                 // I'm not sure yet if it is a good practice to expose Activity.reloadData to Adapter
                 ((MainActivity)mContext).reloadData();
