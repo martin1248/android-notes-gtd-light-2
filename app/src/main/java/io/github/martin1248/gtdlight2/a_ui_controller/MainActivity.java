@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             int gtdState = extras.getInt(GTD_STATE_ID_KEY);
             mGtdState = GtdState.states.get(gtdState);
             setTitle(mGtdState.toString());
-            mViewModel.loadData(gtdState);
+            // reloadData(); is done afterwards by onResume()
         }
     }
 
@@ -134,6 +134,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onResume()
+    {  // After a pause OR at startup
+        super.onResume();
+        reloadData();
+    }
+
     private void deleteAllNotes() {
         mViewModel.deleteAllNotes();
     }
@@ -143,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void reloadData() {
+        Log.i("GtdLight", "reloadData: ");
         mViewModel.loadData(GtdState.states.indexOf(mGtdState));
     }
 }
