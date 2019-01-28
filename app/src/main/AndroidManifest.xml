@@ -37,6 +37,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.martin1248.gtdlight2.a_ui_controller.MainActivity" />
         </activity>
+        <activity
+            android:name=".a_ui_controller.NextActionsActivity"
+            android:label="@string/title_activity_next_actions"
+            android:parentActivityName=".a_ui_controller.StartActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.martin1248.gtdlight2.a_ui_controller.StartActivity" />
+        </activity>
     </application>
 
 </manifest>

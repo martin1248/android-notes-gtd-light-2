@@ -48,9 +48,14 @@ public class GtdStatesAdapter extends RecyclerView.Adapter<GtdStatesAdapter.View
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, MainActivity.class);
-                intent.putExtra(GTD_STATE_ID_KEY, GtdState.states.indexOf(gtdState));
-                mContext.startActivity(intent);
+                if (GtdState.NEXT_ACTIONS == gtdState) {
+                    Intent intent = new Intent(mContext, NextActionsActivity.class);
+                    mContext.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(mContext, MainActivity.class);
+                    intent.putExtra(GTD_STATE_ID_KEY, GtdState.states.indexOf(gtdState));
+                    mContext.startActivity(intent);
+                }
             }
         });
     }
