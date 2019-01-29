@@ -69,4 +69,8 @@ public class AppRepository {
     public Executor getExecutor() {
         return executor;
     }
+
+    public List<NoteEntity> getNotesByGtdStateAndGtdContext(int gtdState, int gtdContext) {
+        return mDb.noteDao().getNotesByGtdStateAndGtdContext(gtdState, gtdContext);
+    }
 }

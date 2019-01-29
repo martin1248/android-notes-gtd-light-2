@@ -1,8 +1,6 @@
 package io.github.martin1248.gtdlight2.a_ui_controller;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,14 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +31,8 @@ import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.R;
 import io.github.martin1248.gtdlight2.b_viewmodel_livedata.MainViewModel;
 import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.utilities.GtdContext;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
-
-import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KEY;
 
 public class NextActionsActivity extends AppCompatActivity {
 
@@ -70,7 +64,7 @@ public class NextActionsActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -112,7 +106,7 @@ public class NextActionsActivity extends AppCompatActivity {
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+        private static final String ARG_SECTION_POSITION = "section_number";
 
         @BindView(R.id.recycler_view)
         RecyclerView mRecyclerView;
@@ -120,7 +114,7 @@ public class NextActionsActivity extends AppCompatActivity {
         private List<NoteEntity> notesData = new ArrayList<>();
         private NotesAdapter mAdapter;
         private MainViewModel mViewModel;
-        private int mGtdState;
+        private int mGtdContext;
 
         public PlaceholderFragment() {
         }
@@ -132,7 +126,7 @@ public class NextActionsActivity extends AppCompatActivity {
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putInt(ARG_SECTION_POSITION, sectionNumber);
             fragment.setArguments(args);
             return fragment;
         }
@@ -146,7 +140,7 @@ public class NextActionsActivity extends AppCompatActivity {
             initRecyclerView();
             initViewModel();
 
-            mGtdState = getArguments().getInt(ARG_SECTION_NUMBER) - 1;
+            mGtdContext = getArguments().getInt(ARG_SECTION_POSITION);
             reloadData();
 
             return rootView;
@@ -187,7 +181,7 @@ public class NextActionsActivity extends AppCompatActivity {
         }
 
         public void reloadData() {
-            mViewModel.loadData(mGtdState);
+            mViewModel.loadData(GtdState.states.indexOf(GtdState.NEXT_ACTIONS), mGtdContext);
         }
 
         @Override
@@ -195,6 +189,13 @@ public class NextActionsActivity extends AppCompatActivity {
             mViewModel.setNoteToDone(position);
             reloadData();
             //mAdapter.notifyDataSetChanged(); // This is a good practice but recyclerview is updated by reloadData already
+        }
+
+        @Override
+        public void onResume()
+        {  // After a pause OR at startup
+            super.onResume();
+            reloadData();
         }
     }
 
@@ -204,6 +205,9 @@ public class NextActionsActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
+        // Note: It would also be possible to create and REUSE fragments. See: https://medium.com/@kyroschow/how-to-use-viewpager-for-navigating-between-fragments-with-tablayout-a28b4cf92c42
+        // private Fragment[] childFragments;
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -212,13 +216,20 @@ public class NextActionsActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(position);
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return GtdContext.contexts.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            //String title = getItem(position).getClass().getName();
+            //return title.subSequence(title.lastIndexOf(".") + 1, title.length());
+
+            return GtdContext.contexts.get(position).toString();
         }
     }
 }

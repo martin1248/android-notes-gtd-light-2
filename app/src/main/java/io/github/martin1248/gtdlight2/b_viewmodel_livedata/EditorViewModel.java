@@ -42,7 +42,7 @@ public class EditorViewModel extends AndroidViewModel {
             if (TextUtils.isEmpty(noteText.trim())) {
                 return;
             }
-            note = new NoteEntity(new Date(), noteText.trim(), noteState);
+            note = new NoteEntity(new Date(), noteText.trim(), noteState, 0); //TODO Implement Spinner for gtdContext and put value here
         } else {
             // Existing/Editing note
             note.setText(noteText.trim());

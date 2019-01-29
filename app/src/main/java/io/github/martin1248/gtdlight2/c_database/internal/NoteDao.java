@@ -37,4 +37,7 @@ public interface NoteDao {
 
     @Query("SELECT * FROM notes WHERE state = :state")
     List<NoteEntity> getNotesByGtdState(int state);
+
+    @Query("SELECT * FROM notes WHERE state = :state AND context = :context")
+    List<NoteEntity> getNotesByGtdStateAndGtdContext(int state, int context);
 }

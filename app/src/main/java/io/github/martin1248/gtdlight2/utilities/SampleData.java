@@ -23,12 +23,19 @@ public class SampleData {
 
     public static List<NoteEntity> getNotes() {
         List<NoteEntity> notes = new ArrayList<>();
-        notes.add(new NoteEntity(getDate(0), SAMPLE_TEXT_1, 0));
-        notes.add(new NoteEntity(getDate(-1), SAMPLE_TEXT_2, 0));
-        notes.add(new NoteEntity(getDate(-2), SAMPLE_TEXT_3, 0));
-        notes.add(new NoteEntity(getDate(-3), "Sample note: Inbox", 0));
-        notes.add(new NoteEntity(getDate(-4), "Sample note: Next Action", 1));
-        notes.add(new NoteEntity(getDate(-5), "Sample note: Calender", 2));
+        notes.add(new NoteEntity(getDate(0), SAMPLE_TEXT_1, 0,0));
+        notes.add(new NoteEntity(getDate(-1), SAMPLE_TEXT_2, 0,0));
+        notes.add(new NoteEntity(getDate(-2), SAMPLE_TEXT_3, 0,0));
+        notes.add(new NoteEntity(getDate(-3), "Sample note: Inbox", 0,0));
+        notes.add(new NoteEntity(getDate(-4), "Sample note: Next Action1", 1,0));
+        notes.add(new NoteEntity(getDate(-5), "Sample note: Next Action2", 1,0));
+        notes.add(new NoteEntity(getDate(-6), "Sample note: Next Action3", 1,1));
+        notes.add(new NoteEntity(getDate(-7), "Sample note: Next Action4", 1,2));
+        notes.add(new NoteEntity(getDate(-8), "Sample note: Next Action5", 1,3));
+        notes.add(new NoteEntity(getDate(-9), "Sample note: Next Action6", 1,4));
+        notes.add(new NoteEntity(getDate(-10), "Sample note: Next Action7", 1,0));
+        notes.add(new NoteEntity(getDate(-11), "Sample note: Next Action8", 1,0));
+        notes.add(new NoteEntity(getDate(-12), "Sample note: Calender", 2,0));
         return notes;
     }
 }

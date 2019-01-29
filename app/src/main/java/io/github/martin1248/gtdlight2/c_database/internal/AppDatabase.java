@@ -9,7 +9,7 @@ import androidx.room.TypeConverters;
 
 
 // Note: To see what Room generates search for "AppDatabase_Impl.java"
-@Database(entities = {NoteEntity.class}, version = 2)
+@Database(entities = {NoteEntity.class}, version = 3)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "AppDatabase.db";
