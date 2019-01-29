@@ -35,7 +35,7 @@ public class GtdStatesAdapter extends RecyclerView.Adapter<GtdStatesAdapter.View
     @Override
     public GtdStatesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.gtd_state_list_item, parent, false);
+        View view = inflater.inflate(R.layout.list_item_gtd_state, parent, false);
         return new GtdStatesAdapter.ViewHolder(view);
     }
 

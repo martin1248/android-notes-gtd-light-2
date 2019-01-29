@@ -16,9 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.R;
-import io.github.martin1248.gtdlight2.c_database.AppRepository;
 import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
-import io.github.martin1248.gtdlight2.utilities.GtdState;
 
 import static io.github.martin1248.gtdlight2.utilities.Constants.NOTE_ID_KEY;
 
@@ -38,7 +36,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     // Note: Is called each time when a view holder needs to be created and this will create an instance of the custom view holder from below
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.note_list_item, parent, false);
+        View view = inflater.inflate(R.layout.list_item_note, parent, false);
         return new ViewHolder(view);
     }
 
