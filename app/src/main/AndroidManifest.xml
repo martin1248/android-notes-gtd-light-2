@@ -38,8 +38,8 @@
                 android:value="io.github.martin1248.gtdlight2.a_ui_controller.MainActivity" />
         </activity>
         <activity
-            android:name=".a_ui_controller.NextActionsActivity"
-            android:label="@string/title_activity_next_actions"
+            android:name=".a_ui_controller.MainTabbedActivity"
+            android:label="@string/title_activity_main_tabbed"
             android:parentActivityName=".a_ui_controller.StartActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

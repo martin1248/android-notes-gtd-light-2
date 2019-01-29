@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import io.github.martin1248.gtdlight2.R;
 import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.utilities.GtdContext;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 import io.github.martin1248.gtdlight2.b_viewmodel_livedata.EditorViewModel;
 
@@ -32,6 +33,9 @@ public class EditorActivity extends AppCompatActivity {
     TextView mTextView;
     @BindView(R.id.note_gtd_state)
     Spinner mSpinnerGtdState;
+    @BindView(R.id.note_gtd_context)
+    Spinner mSpinnerGtdContext;
+
 
     private EditorViewModel mViewModel;
     private boolean mNewNote, mEditing;
@@ -65,6 +69,7 @@ public class EditorActivity extends AppCompatActivity {
                 if (noteEntity != null && !mEditing) {
                     mTextView.setText(noteEntity.getText());
                     mSpinnerGtdState.setSelection(noteEntity.getState());
+                    mSpinnerGtdContext.setSelection(noteEntity.getContext());
                 }
             }
         });
@@ -79,10 +84,15 @@ public class EditorActivity extends AppCompatActivity {
             mViewModel.loadData(noteId);
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterGtdState = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, GtdState.getStatesAsStrings());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinnerGtdState.setAdapter(adapter);
+        adapterGtdState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinnerGtdState.setAdapter(adapterGtdState);
+
+        ArrayAdapter<String> adapterGtdContext = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, GtdContext.getContextsAsStrings());
+        adapterGtdContext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinnerGtdContext.setAdapter(adapterGtdContext);
     }
 
     @Override
@@ -112,7 +122,7 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     private void saveAndReturn() {
-        mViewModel.saveNote(mTextView.getText().toString(), mSpinnerGtdState.getSelectedItemPosition());
+        mViewModel.saveNote(mTextView.getText().toString(), mSpinnerGtdState.getSelectedItemPosition(), mSpinnerGtdContext.getSelectedItemPosition());
         finish();
     }
 

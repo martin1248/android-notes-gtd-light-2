@@ -35,7 +35,7 @@ import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
 import io.github.martin1248.gtdlight2.utilities.GtdContext;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 
-public class NextActionsActivity extends AppCompatActivity {
+public class MainTabbedActivity extends AppCompatActivity {
 
     /**
      * The {@link androidx.viewpager.widget.PagerAdapter} that will provide
@@ -55,7 +55,7 @@ public class NextActionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_next_actions);
+        setContentView(R.layout.activity_main_tabbed);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,9 +66,10 @@ public class NextActionsActivity extends AppCompatActivity {
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        // Necessary for ViewPager with Visible Adjacent Pages
         mViewPager.setClipToPadding(false);
         mViewPager.setPageMargin(12);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setBackgroundColor(Color.parseColor("#e0e0e0"));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -87,7 +88,7 @@ public class NextActionsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_next_actions, menu);
+        getMenuInflater().inflate(R.menu.menu_main_tabbed, menu);
         return true;
     }
 
@@ -142,7 +143,7 @@ public class NextActionsActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_next_actions, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_main_tabbed, container, false);
 
             ButterKnife.bind(this, rootView);
             initRecyclerView();
@@ -236,9 +237,6 @@ public class NextActionsActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            //String title = getItem(position).getClass().getName();
-            //return title.subSequence(title.lastIndexOf(".") + 1, title.length());
-
             return GtdContext.contexts.get(position).toString();
         }
 

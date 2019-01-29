@@ -97,7 +97,7 @@
     <string name="new_note">New note</string>
     <string name="delete">Delete</string>
     <string name="title_activity_start">GTD</string>
-    <string name="title_activity_next_actions">NextActionsActivity</string>
+    <string name="title_activity_main_tabbed">MainTabbedActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>

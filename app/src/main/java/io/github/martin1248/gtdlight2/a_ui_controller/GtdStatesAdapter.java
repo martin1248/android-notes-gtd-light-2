@@ -49,7 +49,7 @@ public class GtdStatesAdapter extends RecyclerView.Adapter<GtdStatesAdapter.View
             @Override
             public void onClick(View v) {
                 if (GtdState.NEXT_ACTIONS == gtdState) {
-                    Intent intent = new Intent(mContext, NextActionsActivity.class);
+                    Intent intent = new Intent(mContext, MainTabbedActivity.class);
                     mContext.startActivity(intent);
                 } else {
                     Intent intent = new Intent(mContext, MainActivity.class);

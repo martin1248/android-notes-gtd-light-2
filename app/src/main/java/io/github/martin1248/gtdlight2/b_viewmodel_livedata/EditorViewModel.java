@@ -34,7 +34,7 @@ public class EditorViewModel extends AndroidViewModel {
         });
     }
 
-    public void saveNote(String noteText, int noteState) {
+    public void saveNote(String noteText, int noteState, int noteContext) {
         NoteEntity note = mLiveNote.getValue();
 
         if (note == null) {
@@ -42,11 +42,12 @@ public class EditorViewModel extends AndroidViewModel {
             if (TextUtils.isEmpty(noteText.trim())) {
                 return;
             }
-            note = new NoteEntity(new Date(), noteText.trim(), noteState, 0); //TODO Implement Spinner for gtdContext and put value here
+            note = new NoteEntity(new Date(), noteText.trim(), noteState, noteContext);
         } else {
             // Existing/Editing note
             note.setText(noteText.trim());
             note.setState(noteState);
+            note.setContext(noteContext);
         }
         mRepository.insertNote(note);
     }
