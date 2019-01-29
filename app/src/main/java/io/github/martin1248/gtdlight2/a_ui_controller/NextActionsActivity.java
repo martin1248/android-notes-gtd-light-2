@@ -65,6 +65,8 @@ public class NextActionsActivity extends AppCompatActivity {
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mViewPager.setClipToPadding(false);
+        mViewPager.setPageMargin(12);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -230,6 +232,13 @@ public class NextActionsActivity extends AppCompatActivity {
             //return title.subSequence(title.lastIndexOf(".") + 1, title.length());
 
             return GtdContext.contexts.get(position).toString();
+        }
+
+        // ViewPager with Visible Adjacent Pages
+        // See: https://github.com/codepath/android_guides/wiki/ViewPager-with-FragmentPagerAdapter#dynamic-viewpager-fragments
+        @Override
+        public float getPageWidth (int position) {
+            return 0.93f;
         }
     }
 }
