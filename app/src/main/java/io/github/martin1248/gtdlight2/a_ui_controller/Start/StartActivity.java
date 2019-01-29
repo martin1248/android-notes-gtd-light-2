@@ -1,5 +1,6 @@
 package io.github.martin1248.gtdlight2.a_ui_controller.Start;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,13 +11,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.github.martin1248.gtdlight2.R;
+import io.github.martin1248.gtdlight2.a_ui_controller.Editor.EditorActivity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 
 public class StartActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+
+    @OnClick(R.id.fab)
+    void fabClickHandler() {
+        Intent intent = new Intent(this, EditorActivity.class);
+        startActivity(intent);
+    }
 
     private GtdStatesAdapter mAdapter;
 

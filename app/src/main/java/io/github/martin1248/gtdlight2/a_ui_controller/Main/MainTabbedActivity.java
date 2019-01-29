@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,7 +30,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.github.martin1248.gtdlight2.R;
+import io.github.martin1248.gtdlight2.a_ui_controller.Editor.EditorActivity;
 import io.github.martin1248.gtdlight2.a_ui_controller.Main.NotesAdapter;
 import io.github.martin1248.gtdlight2.b_viewmodel_livedata.MainViewModel;
 import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
@@ -52,6 +55,12 @@ public class MainTabbedActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+
+    @OnClick(R.id.fab)
+    void fabClickHandler() {
+        Intent intent = new Intent(this, EditorActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +92,8 @@ public class MainTabbedActivity extends AppCompatActivity {
         for (GtdContext gtdContext: GtdContext.contexts) {
             tabLayout.addTab(tabLayout.newTab().setText(gtdContext.toString()));
         }
+
+        ButterKnife.bind(this);
     }
 
 
