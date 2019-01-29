@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.a_ui_controller.widget;
+package io.github.martin1248.gtdlight2.widget;
 
 import android.annotation.TargetApi;
 import android.appwidget.AppWidgetManager;
