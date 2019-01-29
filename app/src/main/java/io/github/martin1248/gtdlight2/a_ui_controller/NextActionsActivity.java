@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -68,6 +69,7 @@ public class NextActionsActivity extends AppCompatActivity {
         mViewPager.setClipToPadding(false);
         mViewPager.setPageMargin(12);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setBackgroundColor(Color.parseColor("#e0e0e0"));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
@@ -75,6 +77,10 @@ public class NextActionsActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         setTitle(GtdState.NEXT_ACTIONS.toString());
+
+        for (GtdContext gtdContext: GtdContext.contexts) {
+            tabLayout.addTab(tabLayout.newTab().setText(gtdContext.toString()));
+        }
     }
 
 
@@ -141,6 +147,8 @@ public class NextActionsActivity extends AppCompatActivity {
             ButterKnife.bind(this, rootView);
             initRecyclerView();
             initViewModel();
+
+            rootView.setBackgroundColor(Color.parseColor("#fafafa"));
 
             mGtdContext = getArguments().getInt(ARG_SECTION_POSITION);
             reloadData();
