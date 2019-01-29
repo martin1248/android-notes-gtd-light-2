@@ -1,8 +1,9 @@
-package io.github.martin1248.gtdlight2;
+package io.github.martin1248.gtdlight2.a_ui_controller.widget;
 
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViewsService;
+
+import io.github.martin1248.gtdlight2.a_ui_controller.widget.WidgetDataProvider;
 
 /**
  * WidgetService is the {@link RemoteViewsService} that will return our RemoteViewsFactory

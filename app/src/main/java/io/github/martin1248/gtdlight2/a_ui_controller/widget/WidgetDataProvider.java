@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2;
+package io.github.martin1248.gtdlight2.a_ui_controller.widget;
 
 import android.content.Context;
 import android.content.Intent;
@@ -75,7 +75,7 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
     private void initData() {
         mCollection.clear();
         for (int i = 1; i <= 10; i++) {
-            mCollection.add("ListView item " + i);
+            mCollection.add("ListView item++ " + i);
         }
     }
 

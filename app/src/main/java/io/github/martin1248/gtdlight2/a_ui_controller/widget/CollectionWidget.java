@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2;
+package io.github.martin1248.gtdlight2.a_ui_controller.widget;
 
 import android.annotation.TargetApi;
 import android.appwidget.AppWidgetManager;
@@ -7,8 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import androidx.annotation.NonNull;
+import io.github.martin1248.gtdlight2.R;
+import io.github.martin1248.gtdlight2.a_ui_controller.widget.WidgetService;
 
-import android.util.Log;
 import android.widget.RemoteViews;
 
 /**
