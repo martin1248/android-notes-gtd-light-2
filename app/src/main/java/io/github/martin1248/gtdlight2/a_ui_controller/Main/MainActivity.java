@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.a_ui_controller;
+package io.github.martin1248.gtdlight2.a_ui_controller.Main;
 
 import android.content.Intent;
 import android.os.Bundle;

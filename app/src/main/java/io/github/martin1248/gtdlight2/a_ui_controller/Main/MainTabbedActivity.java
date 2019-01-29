@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.a_ui_controller;
+package io.github.martin1248.gtdlight2.a_ui_controller.Main;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -30,6 +30,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.R;
+import io.github.martin1248.gtdlight2.a_ui_controller.Main.NotesAdapter;
 import io.github.martin1248.gtdlight2.b_viewmodel_livedata.MainViewModel;
 import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
 import io.github.martin1248.gtdlight2.utilities.GtdContext;

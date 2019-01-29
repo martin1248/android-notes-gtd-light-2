@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".a_ui_controller.MainActivity"
+            android:name=".a_ui_controller.Main.MainActivity"
             android:label="@string/app_name"
             android:parentActivityName=".a_ui_controller.Start.StartActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -31,14 +31,14 @@
         <activity
             android:name=".a_ui_controller.Editor.EditorActivity"
             android:label="@string/title_activity_editor"
-            android:parentActivityName=".a_ui_controller.MainActivity"
+            android:parentActivityName=".a_ui_controller.Main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.martin1248.gtdlight2.a_ui_controller.MainActivity" />
+                android:value="io.github.martin1248.gtdlight2.a_ui_controller.Main.MainActivity" />
         </activity>
         <activity
-            android:name=".a_ui_controller.MainTabbedActivity"
+            android:name=".a_ui_controller.Main.MainTabbedActivity"
             android:label="@string/title_activity_main_tabbed"
             android:parentActivityName=".a_ui_controller.Start.StartActivity"
             android:theme="@style/AppTheme.NoActionBar">
