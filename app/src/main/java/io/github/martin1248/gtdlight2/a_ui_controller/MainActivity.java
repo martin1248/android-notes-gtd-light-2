@@ -31,7 +31,7 @@ import io.github.martin1248.gtdlight2.b_viewmodel_livedata.MainViewModel;
 import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KEY;
 import static io.github.martin1248.gtdlight2.utilities.Constants.NOTE_ID_KEY;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NotesAdapter.ICheckButtonListener{
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (mAdapter == null) {
                     mAdapter = new NotesAdapter(notesData, MainActivity.this);
+                    mAdapter.setCheckButtonListener(MainActivity.this);
                     mRecyclerView.setAdapter(mAdapter);
                 } else {
                     mAdapter.notifyDataSetChanged();
@@ -150,7 +151,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void reloadData() {
-        Log.i("GtdLight", "reloadData: ");
         mViewModel.loadData(GtdState.states.indexOf(mGtdState));
+    }
+
+    @Override
+    public void onCheckButtonClickListener(int position) {
+        mViewModel.setNoteToDone(position);
+        reloadData();
+        //mAdapter.notifyDataSetChanged(); // This is a good practice but recyclerview is updated by reloadData already
     }
 }

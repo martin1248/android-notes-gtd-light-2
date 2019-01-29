@@ -26,12 +26,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     private final List<NoteEntity> mNotes;
     private final Context mContext;
-    private AppRepository mRepository;
+    private ICheckButtonListener checkButtonListener;
 
     public NotesAdapter(List<NoteEntity> mNotes, Context mContext) {
         this.mNotes = mNotes;
         this.mContext = mContext;
-        this.mRepository = AppRepository.getInstance(mContext);
     }
 
     @NonNull
@@ -52,10 +51,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                note.setState(GtdState.states.indexOf(GtdState.DONE));
-                mRepository.insertNote(note);
-                // I'm not sure yet if it is a good practice to expose Activity.reloadData to Adapter
-                ((MainActivity)mContext).reloadData();
+                checkButtonListener.onCheckButtonClickListener(position);
             }
         });
 
@@ -85,5 +81,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface ICheckButtonListener
+    {
+        void onCheckButtonClickListener(int position);
+    }
+
+    public void setCheckButtonListener(ICheckButtonListener listener)
+    {
+        this.checkButtonListener = listener;
     }
 }

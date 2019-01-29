@@ -10,9 +10,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,8 +28,17 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.R;
+import io.github.martin1248.gtdlight2.b_viewmodel_livedata.MainViewModel;
+import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
+
+import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KEY;
 
 public class NextActionsActivity extends AppCompatActivity {
 
@@ -98,6 +114,14 @@ public class NextActionsActivity extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        @BindView(R.id.recycler_view)
+        RecyclerView mRecyclerView;
+
+        private List<NoteEntity> notesData = new ArrayList<>();
+        private NotesAdapter mAdapter;
+        private MainViewModel mViewModel;
+        private int mGtdState;
+
         public PlaceholderFragment() {
         }
 
@@ -117,9 +141,60 @@ public class NextActionsActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_next_actions, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+            ButterKnife.bind(this, rootView);
+            initRecyclerView();
+            initViewModel();
+
+            mGtdState = getArguments().getInt(ARG_SECTION_NUMBER) - 1;
+            reloadData();
+
             return rootView;
+        }
+
+        private void initViewModel() {
+
+            final Observer<List<NoteEntity>> notesObserver = new Observer<List<NoteEntity>>() {
+                @Override
+                public void onChanged(List<NoteEntity> noteEntities) {
+                    notesData.clear();
+                    notesData.addAll(noteEntities);
+
+                    if (mAdapter == null) {
+                        // Note: Also getActivity() is instead possible. See https://stackoverflow.com/questions/32227146/what-is-different-between-getcontext-and-getactivity-from-fragment-in-support-li/32227421
+                        mAdapter = new NotesAdapter(notesData, getContext());
+                        mAdapter.setCheckButtonListener(PlaceholderFragment.this);
+                        mRecyclerView.setAdapter(mAdapter);
+                    } else {
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
+            };
+
+            mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+
+            mViewModel.getNotes().observe(this, notesObserver);
+        }
+
+        private void initRecyclerView() {
+            mRecyclerView.setHasFixedSize(true);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+            mRecyclerView.setLayoutManager(layoutManager);
+
+            DividerItemDecoration divider = new DividerItemDecoration(
+                    mRecyclerView.getContext(), layoutManager.getOrientation());
+            mRecyclerView.addItemDecoration(divider);
+        }
+
+        public void reloadData() {
+            mViewModel.loadData(mGtdState);
+        }
+
+        @Override
+        public void onCheckButtonClickListener(int position) {
+            mViewModel.setNoteToDone(position);
+            reloadData();
+            //mAdapter.notifyDataSetChanged(); // This is a good practice but recyclerview is updated by reloadData already
         }
     }
 
@@ -127,7 +202,7 @@ public class NextActionsActivity extends AppCompatActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);

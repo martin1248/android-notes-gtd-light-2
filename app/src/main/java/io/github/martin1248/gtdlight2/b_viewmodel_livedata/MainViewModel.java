@@ -13,6 +13,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import io.github.martin1248.gtdlight2.c_database.AppRepository;
 import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.utilities.GtdState;
 
 public class MainViewModel extends AndroidViewModel {
 
@@ -48,9 +49,16 @@ public class MainViewModel extends AndroidViewModel {
             @Override
             public void run() {
                 List<NoteEntity> notes = mRepository.getNotesByGtdState(gtdState);
+                Log.i("GtdLight", "loadData: For gtdState=" + gtdState + " returned=" + notes.size() + " Notes");
                 mNotes.postValue(notes); // Note: 'postValue' will cause its observer to trigger the 'onChanged' method and then the result is displayed
             }
         });
+    }
+
+    public void setNoteToDone(final int position) {
+        final NoteEntity note = mNotes.getValue().get(position);
+        note.setState(GtdState.states.indexOf(GtdState.DONE));
+        mRepository.insertNote(note);
     }
 
 }
