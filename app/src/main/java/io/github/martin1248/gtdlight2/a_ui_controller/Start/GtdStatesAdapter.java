@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.a_ui_controller;
+package io.github.martin1248.gtdlight2.a_ui_controller.Start;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.R;
+import io.github.martin1248.gtdlight2.a_ui_controller.MainActivity;
+import io.github.martin1248.gtdlight2.a_ui_controller.MainTabbedActivity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 
 import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KEY;

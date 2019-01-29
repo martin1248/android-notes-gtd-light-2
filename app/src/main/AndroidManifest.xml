@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".a_ui_controller.StartActivity"
+            android:name=".a_ui_controller.Start.StartActivity"
             android:label="@string/title_activity_start"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,11 +22,11 @@
         <activity
             android:name=".a_ui_controller.MainActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".a_ui_controller.StartActivity"
+            android:parentActivityName=".a_ui_controller.Start.StartActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.martin1248.gtdlight2.a_ui_controller.StartActivity" />
+                android:value="io.github.martin1248.gtdlight2.a_ui_controller.Start.StartActivity" />
         </activity>
         <activity
             android:name=".a_ui_controller.Editor.EditorActivity"
@@ -40,11 +40,11 @@
         <activity
             android:name=".a_ui_controller.MainTabbedActivity"
             android:label="@string/title_activity_main_tabbed"
-            android:parentActivityName=".a_ui_controller.StartActivity"
+            android:parentActivityName=".a_ui_controller.Start.StartActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.martin1248.gtdlight2.a_ui_controller.StartActivity" />
+                android:value="io.github.martin1248.gtdlight2.a_ui_controller.Start.StartActivity" />
         </activity>
 
         <!-- We'll need to add two entries to our manifest for our collection view widget -->
