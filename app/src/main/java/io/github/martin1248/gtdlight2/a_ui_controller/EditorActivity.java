@@ -16,6 +16,8 @@ import io.github.martin1248.gtdlight2.b_viewmodel_livedata.EditorViewModel;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,6 +35,8 @@ public class EditorActivity extends AppCompatActivity {
     TextView mTextView;
     @BindView(R.id.note_gtd_state)
     Spinner mSpinnerGtdState;
+    @BindView(R.id.textViewContext)
+    TextView mTextViewGtdContext;
     @BindView(R.id.note_gtd_context)
     Spinner mSpinnerGtdContext;
 
@@ -57,6 +61,35 @@ public class EditorActivity extends AppCompatActivity {
         }
 
         initViewModel();
+
+        ArrayAdapter<String> adapterGtdState = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, GtdState.getStatesAsStrings());
+        adapterGtdState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinnerGtdState.setAdapter(adapterGtdState);
+
+        ArrayAdapter<String> adapterGtdContext = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, GtdContext.getContextsAsStrings());
+        adapterGtdContext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinnerGtdContext.setAdapter(adapterGtdContext);
+
+        mSpinnerGtdState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (GtdState.states.get(position) == GtdState.NEXT_ACTIONS) {
+                    mTextViewGtdContext.setVisibility(View.VISIBLE);
+                    mSpinnerGtdContext.setVisibility(View.VISIBLE);
+                } else {
+                    mTextViewGtdContext.setVisibility(View.INVISIBLE);
+                    mSpinnerGtdContext.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Nothing to do
+            }
+
+        });
     }
 
     private void initViewModel() {
@@ -83,16 +116,6 @@ public class EditorActivity extends AppCompatActivity {
             int noteId = extras.getInt(NOTE_ID_KEY);
             mViewModel.loadData(noteId);
         }
-
-        ArrayAdapter<String> adapterGtdState = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, GtdState.getStatesAsStrings());
-        adapterGtdState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinnerGtdState.setAdapter(adapterGtdState);
-
-        ArrayAdapter<String> adapterGtdContext = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, GtdContext.getContextsAsStrings());
-        adapterGtdContext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinnerGtdContext.setAdapter(adapterGtdContext);
     }
 
     @Override
