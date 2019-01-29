@@ -107,7 +107,7 @@ public class NextActionsActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends Fragment implements NotesAdapter.ICheckButtonListener{
         /**
          * The fragment argument representing the section number for this
          * fragment.
