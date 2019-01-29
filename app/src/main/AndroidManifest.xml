@@ -59,7 +59,7 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/collection_widget_info" />
+                android:resource="@xml/widget_info_collection" />
         </receiver>
 
         <!-- 2. The service that will send our collection data to our widget. It needs the

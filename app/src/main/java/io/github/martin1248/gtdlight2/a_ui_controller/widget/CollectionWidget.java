@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import io.github.martin1248.gtdlight2.R;
-import io.github.martin1248.gtdlight2.a_ui_controller.widget.WidgetService;
 
 import android.widget.RemoteViews;
 
@@ -19,7 +18,7 @@ public class CollectionWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.collection_widget);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_collection);
 //        views.setTextViewText(R.id.appwidget_text, widgetText);
 
         // Set up the collection
