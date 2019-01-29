@@ -55,12 +55,12 @@ public class MainViewModel extends AndroidViewModel {
         });
     }
 
-    public void loadData(final int gtdState, final int gtdConext) {
+    public void loadData(final int gtdState, final int gtdContext) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                List<NoteEntity> notes = mRepository.getNotesByGtdStateAndGtdContext(gtdState, gtdConext);
-                Log.i("GtdLight", "loadData: For gtdState=" + gtdState + " and gtdContext=" + gtdConext + "returned=" + notes.size() + " Notes");
+                List<NoteEntity> notes = mRepository.getNotesByGtdStateAndGtdContext(gtdState, gtdContext);
+                Log.i("GtdLight", "loadData: For gtdState=" + gtdState + " and gtdContext=" + gtdContext + "returned=" + notes.size() + " Notes");
                 mNotes.postValue(notes); // Note: 'postValue' will cause its observer to trigger the 'onChanged' method and then the result is displayed
             }
         });
