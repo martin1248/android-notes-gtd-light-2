@@ -2,13 +2,8 @@ package io.github.martin1248.gtdlight2.a_ui_controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +19,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.martin1248.gtdlight2.R;
+import io.github.martin1248.gtdlight2.a_ui_controller.Editor.EditorActivity;
 import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 import io.github.martin1248.gtdlight2.b_viewmodel_livedata.MainViewModel;
 
 import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KEY;
-import static io.github.martin1248.gtdlight2.utilities.Constants.NOTE_ID_KEY;
 
 public class MainActivity extends AppCompatActivity implements NotesAdapter.ICheckButtonListener{
 

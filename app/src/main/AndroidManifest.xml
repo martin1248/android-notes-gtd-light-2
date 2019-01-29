@@ -29,7 +29,7 @@
                 android:value="io.github.martin1248.gtdlight2.a_ui_controller.StartActivity" />
         </activity>
         <activity
-            android:name=".a_ui_controller.EditorActivity"
+            android:name=".a_ui_controller.Editor.EditorActivity"
             android:label="@string/title_activity_editor"
             android:parentActivityName=".a_ui_controller.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
