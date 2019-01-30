@@ -31,7 +31,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     private final List<NoteEntity> mNotes;
     private final Context mContext;
-    private ICheckButtonListener checkButtonListener;
+    private INotesAdapterDelegate notesAdapterDelegate;
 
     //TODO
     private static final String[] STRINGS = new String[]{
@@ -64,7 +64,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkButtonListener.onCheckButtonClickListener(position);
+                notesAdapterDelegate.setNoteToStateDone(position);
             }
         });
 
@@ -83,8 +83,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @Override
     public void onItemDismiss(int position) {
         //mItems.remove(position);
-        checkButtonListener.onCheckButtonClickListener(position); // TODO Enough or reload?
-        notifyItemRemoved(position);
+        //notesAdapterDelegate.setNoteToStateTrash(position);
+        //notifyItemRemoved(position);
+        Log.i("GtdLight", "onItemDismiss: Nothing is done");
     }
 
     @Override
@@ -123,13 +124,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         }
     }
 
-    public interface ICheckButtonListener
+    public interface INotesAdapterDelegate
     {
-        void onCheckButtonClickListener(int position);
+        void setNoteToStateDone(int position);
+        //void setNoteToStateTrash(int position);
     }
 
-    public void setCheckButtonListener(ICheckButtonListener listener)
+    public void setNotesAdapterDelegate(INotesAdapterDelegate listener)
     {
-        this.checkButtonListener = listener;
+        this.notesAdapterDelegate = listener;
     }
 }

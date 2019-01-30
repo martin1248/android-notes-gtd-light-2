@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -29,7 +28,7 @@ import io.github.martin1248.gtdlight2.viewmodel.MainViewModel;
 
 import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KEY;
 
-public class AbstractMainFragment extends Fragment implements NotesAdapter.ICheckButtonListener {
+public class AbstractMainFragment extends Fragment implements NotesAdapter.INotesAdapterDelegate {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -81,7 +80,7 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.IChec
                 if (mAdapter == null) {
                     // Note: Also getActivity() is instead possible. See https://stackoverflow.com/questions/32227146/what-is-different-between-getcontext-and-getactivity-from-fragment-in-support-li/32227421
                     mAdapter = new NotesAdapter(notesData, getContext());
-                    mAdapter.setCheckButtonListener(AbstractMainFragment.this);
+                    mAdapter.setNotesAdapterDelegate(AbstractMainFragment.this);
                     mRecyclerView.setAdapter(mAdapter);
                     // For ItemTouchHelper
                     mRecyclerView.setHasFixedSize(true);
@@ -119,7 +118,7 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.IChec
     }
 
     @Override
-    public void onCheckButtonClickListener(int position) {
+    public void setNoteToStateDone(int position) {
         mViewModel.setNoteToDone(position);
         reloadData();
         //mAdapter.notifyDataSetChanged(); // This is a good practice but recyclerview is updated by reloadData already

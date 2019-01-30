@@ -26,7 +26,6 @@
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:popupTheme="@style/AppTheme.NoActionBar"
         tools:context=".ui.Main.MainFragActivity" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
