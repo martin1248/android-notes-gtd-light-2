@@ -3,6 +3,7 @@ package io.github.martin1248.gtdlight2.ui.Main;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,9 +58,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @Override
     // Is called each time when I want to update the display of a list item
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.mTextView.setText(mItems.get(position));
-
-        /* TODO
         final NoteEntity note = mNotes.get(position);
         holder.mTextView.setText(note.getText());
 
@@ -78,21 +76,23 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 intent.putExtra(NOTE_ID_KEY, note.getId());
                 mContext.startActivity(intent);
             }
-        });*/
+        });
     }
 
     // See: https://github.com/iPaulPro/Android-ItemTouchHelper-Demo/tree/d8d85c32d579f19718b9bbb97f7a1bda0e616f1f/app/src/main/java/co/paulburke/android/itemtouchhelperdemo
     @Override
     public void onItemDismiss(int position) {
-        mItems.remove(position);
+        //mItems.remove(position);
+        checkButtonListener.onCheckButtonClickListener(position); // TODO Enough or reload?
         notifyItemRemoved(position);
     }
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        String prev = mItems.remove(fromPosition);
-        mItems.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
-        notifyItemMoved(fromPosition, toPosition);
+        //String prev = mItems.remove(fromPosition);
+        //mItems.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
+        //notifyItemMoved(fromPosition, toPosition);
+        Log.i("GtdLight", "onItemMove: Nothing is done");
     }
 
     @Override

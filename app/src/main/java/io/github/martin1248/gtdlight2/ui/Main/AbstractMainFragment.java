@@ -50,7 +50,9 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.IChec
 
         ButterKnife.bind(this, rootView);
         initRecyclerView();
-        initViewModel();
+
+        Bundle extras = getActivity().getIntent().getExtras();
+        mGtdState = GtdState.states.get(extras.getInt(GTD_STATE_ID_KEY));
 
         return rootView;
     }
@@ -65,10 +67,11 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.IChec
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        initViewModel();
+        reloadData();
+    }
 
-
-
-
+    private void initViewModel() {
         final Observer<List<NoteEntity>> notesObserver = new Observer<List<NoteEntity>>() {
             @Override
             public void onChanged(List<NoteEntity> noteEntities) {
@@ -80,10 +83,9 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.IChec
                     mAdapter = new NotesAdapter(notesData, getContext());
                     mAdapter.setCheckButtonListener(AbstractMainFragment.this);
                     mRecyclerView.setAdapter(mAdapter);
-
-
+                    // For ItemTouchHelper
                     mRecyclerView.setHasFixedSize(true);
-                    mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity())); // TODO ?
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 } else {
                     mAdapter.notifyDataSetChanged();
                 }
@@ -96,17 +98,6 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.IChec
 
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mViewModel.getNotes().observe(this, notesObserver);
-
-        reloadData();
-    }
-
-    private void initViewModel() {
-
-
-
-        Bundle extras = getActivity().getIntent().getExtras();
-        mGtdState = GtdState.states.get(extras.getInt(GTD_STATE_ID_KEY));
-        // reloadData(); is done afterwards by onResume()
     }
 
     private void initRecyclerView() {
