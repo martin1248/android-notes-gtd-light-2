@@ -1,7 +1,9 @@
 package io.github.martin1248.gtdlight2.database;
 
 import android.content.Context;
+import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -9,11 +11,13 @@ import java.util.concurrent.Executors;
 import androidx.lifecycle.LiveData;
 import io.github.martin1248.gtdlight2.database.internal.AppDatabase;
 import io.github.martin1248.gtdlight2.database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.utilities.GtdState;
 import io.github.martin1248.gtdlight2.utilities.SampleData;
 
 public class AppRepository {
     private static AppRepository ourInstance;
 
+    public List<LiveData<List<NoteEntity>>> mNotesByStates;
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();
 
@@ -26,6 +30,11 @@ public class AppRepository {
 
     private AppRepository(Context context) {
         mDb = AppDatabase.getInstance(context);
+
+        mNotesByStates = new ArrayList<>();
+        for (GtdState state : GtdState.states) {
+            mNotesByStates.add(getAllNotesWithState(GtdState.states.indexOf(state)));
+        }
     }
 
     public void addSampleData() {
@@ -34,6 +43,10 @@ public class AppRepository {
 
     private LiveData<List<NoteEntity>> getAllNotes() {
         return mDb.noteDao().getAll();
+    }
+
+    private LiveData<List<NoteEntity>> getAllNotesWithState(int state) {
+        return mDb.noteDao().getAllWithState(state);
     }
 
     public void deleteAllNotes() {
@@ -62,15 +75,8 @@ public class AppRepository {
         });
     }
 
-    public List<NoteEntity> getNotesByGtdState(int gtdState) {
-        return mDb.noteDao().getNotesByGtdState(gtdState);
-    }
-
     public Executor getExecutor() {
         return executor;
     }
 
-    public List<NoteEntity> getNotesByGtdStateAndGtdContext(int gtdState, int gtdContext) {
-        return mDb.noteDao().getNotesByGtdStateAndGtdContext(gtdState, gtdContext);
-    }
 }

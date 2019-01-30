@@ -16,7 +16,7 @@ import io.github.martin1248.gtdlight2.utilities.GtdState;
 
 public class MainViewModel extends AndroidViewModel {
 
-    private MutableLiveData<List<NoteEntity>> mNotes;
+    public List<LiveData<List<NoteEntity>>> mNotesByStates;
     private AppRepository mRepository;
     private Executor executor;
 
@@ -25,6 +25,8 @@ public class MainViewModel extends AndroidViewModel {
 
         mRepository = AppRepository.getInstance(application.getApplicationContext());
         executor = mRepository.getExecutor();
+
+        mNotesByStates = mRepository.mNotesByStates;
     }
 
     public void addSampleData() {
@@ -33,42 +35,6 @@ public class MainViewModel extends AndroidViewModel {
 
     public void deleteAllNotes() {
         mRepository.deleteAllNotes();
-    }
-
-    // Note: Only return immutable data to ui controller
-    public LiveData<List<NoteEntity>> getNotes() {
-        if (mNotes == null) {
-            mNotes = new MutableLiveData<List<NoteEntity>>();
-        }
-        return mNotes;
-    }
-
-    public void loadData(final int gtdState) {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                List<NoteEntity> notes = mRepository.getNotesByGtdState(gtdState);
-                Log.i("GtdLight", "loadData: For gtdState=" + gtdState + " returned=" + notes.size() + " Notes");
-                mNotes.postValue(notes); // Note: 'postValue' will cause its observer to trigger the 'onChanged' method and then the result is displayed
-            }
-        });
-    }
-
-    public void loadData(final int gtdState, final int gtdContext) {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                List<NoteEntity> notes = mRepository.getNotesByGtdStateAndGtdContext(gtdState, gtdContext);
-                Log.i("GtdLight", "loadData: For gtdState=" + gtdState + " and gtdContext=" + gtdContext + "returned=" + notes.size() + " Notes");
-                mNotes.postValue(notes); // Note: 'postValue' will cause its observer to trigger the 'onChanged' method and then the result is displayed
-            }
-        });
-    }
-
-    public void setNoteToDone(final int position) {
-        final NoteEntity note = mNotes.getValue().get(position);
-        note.setState(GtdState.states.indexOf(GtdState.DONE));
-        mRepository.insertNote(note);
     }
 
 }

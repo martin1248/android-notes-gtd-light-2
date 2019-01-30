@@ -7,10 +7,22 @@
     android:layout_height="match_parent"
     tools:context=".ui.Main.MainFragFragment">
 
+    <TextView
+        android:id="@+id/textViewTODO"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:background="@color/colorPrimaryDark"
+        android:text="TODO - Ihave no clue yet so i use this workaround"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -18,6 +30,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/main_frag"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewTODO" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

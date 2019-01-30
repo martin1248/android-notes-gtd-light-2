@@ -2,6 +2,7 @@ package io.github.martin1248.gtdlight2.ui.Main;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,6 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
         super.onViewCreated(view, savedInstanceState);
 
         initViewModel();
-        reloadData();
     }
 
     private void initViewModel() {
@@ -76,6 +76,8 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
             public void onChanged(List<NoteEntity> noteEntities) {
                 notesData.clear();
                 notesData.addAll(noteEntities);
+
+                Log.i("GtdLight", "onChanged: observed notes changed. state=" + mGtdState + " returned=" + noteEntities.size());
 
                 if (mAdapter == null) {
                     // Note: Also getActivity() is instead possible. See https://stackoverflow.com/questions/32227146/what-is-different-between-getcontext-and-getactivity-from-fragment-in-support-li/32227421
@@ -96,7 +98,7 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
         };
 
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        mViewModel.getNotes().observe(this, notesObserver);
+        mViewModel.mNotesByStates.get(GtdState.states.indexOf(mGtdState)).observe(this, notesObserver);
     }
 
     private void initRecyclerView() {
@@ -109,26 +111,18 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
         mRecyclerView.addItemDecoration(divider);
     }
 
-    public void reloadData() {
-        if (mIsGtdContextAware) {
-            mViewModel.loadData(GtdState.states.indexOf(mGtdState), GtdContext.contexts.indexOf(mGtdContext));
-        } else {
-            mViewModel.loadData(GtdState.states.indexOf(mGtdState));
-        }
-    }
+
 
     @Override
     public void setNoteToStateDone(int position) {
-        mViewModel.setNoteToDone(position);
-        reloadData();
-        //mAdapter.notifyDataSetChanged(); // This is a good practice but recyclerview is updated by reloadData already
-    }
+        Log.i("GtdLight", "setNoteToStateDone: TODO");
+        /*
+        New
+        NoteEntity note =  notesData.get(position);
+        mViewModel setToDone(note)
 
-    @Override
-    public void onResume()
-    {  // After a pause OR at startup
-        super.onResume();
-        reloadData();
+                Current
+        mViewModel.setNoteToDone(position);;*/
     }
 
     public void setIsGtdContextAware(boolean mIsGtdContextAware) {

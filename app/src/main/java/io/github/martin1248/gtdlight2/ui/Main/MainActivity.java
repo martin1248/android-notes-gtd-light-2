@@ -73,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.INot
 
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
-        mViewModel.getNotes().observe(this, notesObserver);
+        //mViewModel.getNotes().observe(this, notesObserver);
+        mViewModel.mNotesByStates.get(GtdState.states.indexOf(mGtdState));
 
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
@@ -104,13 +105,13 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.INot
     }
 
     public void reloadData() {
-        mViewModel.loadData(GtdState.states.indexOf(mGtdState));
+        //mViewModel.loadData(GtdState.states.indexOf(mGtdState));
     }
 
     @Override
     public void setNoteToStateDone(int position) {
-        mViewModel.setNoteToDone(position);
-        reloadData();
+        //mViewModel.setNoteToDone(position);
+        //reloadData();
         //mAdapter.notifyDataSetChanged(); // This is a good practice but recyclerview is updated by reloadData already
     }
 }
