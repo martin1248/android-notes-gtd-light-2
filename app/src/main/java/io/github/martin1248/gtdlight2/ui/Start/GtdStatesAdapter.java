@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.R;
 import io.github.martin1248.gtdlight2.ui.Main.MainActivity;
+import io.github.martin1248.gtdlight2.ui.Main.MainFragActivity;
 import io.github.martin1248.gtdlight2.ui.Main.MainTabbedActivity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 
@@ -50,14 +51,14 @@ public class GtdStatesAdapter extends RecyclerView.Adapter<GtdStatesAdapter.View
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent;
                 if (GtdState.NEXT_ACTIONS == gtdState) {
-                    Intent intent = new Intent(mContext, MainTabbedActivity.class);
-                    mContext.startActivity(intent);
+                    intent = new Intent(mContext, MainTabbedActivity.class);
                 } else {
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    intent.putExtra(GTD_STATE_ID_KEY, GtdState.states.indexOf(gtdState));
-                    mContext.startActivity(intent);
+                    intent = new Intent(mContext, MainFragActivity.class);
                 }
+                intent.putExtra(GTD_STATE_ID_KEY, GtdState.states.indexOf(gtdState));
+                mContext.startActivity(intent);
             }
         });
     }

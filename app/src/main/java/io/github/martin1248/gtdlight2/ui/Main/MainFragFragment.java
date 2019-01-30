@@ -21,9 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.R;
+import io.github.martin1248.gtdlight2.utilities.GtdContext;
 import io.github.martin1248.gtdlight2.viewmodel.MainViewModel;
 import io.github.martin1248.gtdlight2.database.internal.NoteEntity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
+
+import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KEY;
 
 public class MainFragFragment extends Fragment implements NotesAdapter.ICheckButtonListener {
 
@@ -33,7 +36,7 @@ public class MainFragFragment extends Fragment implements NotesAdapter.ICheckBut
     private List<NoteEntity> notesData = new ArrayList<>();
     private NotesAdapter mAdapter;
     private MainViewModel mViewModel;
-    private int mGtdContext;
+    private GtdState mGtdState;
 
     public static MainFragFragment newInstance() {
         return new MainFragFragment();
@@ -48,7 +51,6 @@ public class MainFragFragment extends Fragment implements NotesAdapter.ICheckBut
         initRecyclerView();
         initViewModel();
 
-        mGtdContext = 0;
         reloadData();
 
         return rootView;
@@ -82,6 +84,10 @@ public class MainFragFragment extends Fragment implements NotesAdapter.ICheckBut
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         mViewModel.getNotes().observe(this, notesObserver);
+
+        Bundle extras = getActivity().getIntent().getExtras();
+        mGtdState = GtdState.states.get(extras.getInt(GTD_STATE_ID_KEY));
+        // reloadData(); is done afterwards by onResume()
     }
 
     private void initRecyclerView() {
@@ -95,7 +101,7 @@ public class MainFragFragment extends Fragment implements NotesAdapter.ICheckBut
     }
 
     public void reloadData() {
-        mViewModel.loadData(GtdState.states.indexOf(GtdState.NEXT_ACTIONS), mGtdContext);
+        mViewModel.loadData(GtdState.states.indexOf(mGtdState));
     }
 
     @Override

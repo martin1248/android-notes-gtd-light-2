@@ -12,6 +12,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.martin1248.gtdlight2.R;
 import io.github.martin1248.gtdlight2.ui.Editor.EditorActivity;
+import io.github.martin1248.gtdlight2.utilities.GtdState;
+
+import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KEY;
 
 public class MainFragActivity extends AppCompatActivity {
 
@@ -36,8 +39,11 @@ public class MainFragActivity extends AppCompatActivity {
                     .commitNow();
         }
 
-        setTitle("Main Frag Activity");
         ButterKnife.bind(this);
+
+        Bundle extras = getIntent().getExtras();
+        GtdState gtdState = GtdState.states.get(extras.getInt(GTD_STATE_ID_KEY));
+        setTitle(gtdState.toString());
     }
 
     @Override
