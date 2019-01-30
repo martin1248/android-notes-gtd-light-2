@@ -15,12 +15,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.R;
 import io.github.martin1248.gtdlight2.database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.ui.Main.ItemTouchHelpers.SimpleItemTouchHelperCallback;
 import io.github.martin1248.gtdlight2.utilities.GtdContext;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 import io.github.martin1248.gtdlight2.viewmodel.MainViewModel;
@@ -39,6 +41,7 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.IChec
     private boolean mIsGtdContextAware;
     private GtdContext mGtdContext;
     private int mLayoutResource;
+    private ItemTouchHelper mItemTouchHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,8 +52,6 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.IChec
         initRecyclerView();
         initViewModel();
 
-        reloadData();
-
         return rootView;
     }
 
@@ -60,7 +61,13 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.IChec
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
     }
 
-    private void initViewModel() {
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+
+
 
         final Observer<List<NoteEntity>> notesObserver = new Observer<List<NoteEntity>>() {
             @Override
@@ -73,15 +80,29 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.IChec
                     mAdapter = new NotesAdapter(notesData, getContext());
                     mAdapter.setCheckButtonListener(AbstractMainFragment.this);
                     mRecyclerView.setAdapter(mAdapter);
+
+
+                    mRecyclerView.setHasFixedSize(true);
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity())); // TODO ?
                 } else {
                     mAdapter.notifyDataSetChanged();
                 }
+
+                ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
+                mItemTouchHelper = new ItemTouchHelper(callback);
+                mItemTouchHelper.attachToRecyclerView(mRecyclerView);
             }
         };
 
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-
         mViewModel.getNotes().observe(this, notesObserver);
+
+        reloadData();
+    }
+
+    private void initViewModel() {
+
+
 
         Bundle extras = getActivity().getIntent().getExtras();
         mGtdState = GtdState.states.get(extras.getInt(GTD_STATE_ID_KEY));

@@ -2,6 +2,7 @@ package io.github.martin1248.gtdlight2.ui.Main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -18,18 +21,28 @@ import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.R;
 import io.github.martin1248.gtdlight2.ui.Editor.EditorActivity;
 import io.github.martin1248.gtdlight2.database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.ui.Main.ItemTouchHelpers.ItemTouchHelperAdapter;
+import io.github.martin1248.gtdlight2.ui.Main.ItemTouchHelpers.ItemTouchHelperViewHolder;
 
 import static io.github.martin1248.gtdlight2.utilities.Constants.NOTE_ID_KEY;
 
-public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
+public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> implements ItemTouchHelperAdapter {
 
     private final List<NoteEntity> mNotes;
     private final Context mContext;
     private ICheckButtonListener checkButtonListener;
 
+    //TODO
+    private static final String[] STRINGS = new String[]{
+            "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"
+    };
+
+    private final List<String> mItems = new ArrayList<>();
+
     public NotesAdapter(List<NoteEntity> mNotes, Context mContext) {
         this.mNotes = mNotes;
         this.mContext = mContext;
+        mItems.addAll(Arrays.asList(STRINGS));
     }
 
     @NonNull
@@ -44,6 +57,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @Override
     // Is called each time when I want to update the display of a list item
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.mTextView.setText(mItems.get(position));
+
+        /* TODO
         final NoteEntity note = mNotes.get(position);
         holder.mTextView.setText(note.getText());
 
@@ -62,7 +78,21 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 intent.putExtra(NOTE_ID_KEY, note.getId());
                 mContext.startActivity(intent);
             }
-        });
+        });*/
+    }
+
+    // See: https://github.com/iPaulPro/Android-ItemTouchHelper-Demo/tree/d8d85c32d579f19718b9bbb97f7a1bda0e616f1f/app/src/main/java/co/paulburke/android/itemtouchhelperdemo
+    @Override
+    public void onItemDismiss(int position) {
+        mItems.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        String prev = mItems.remove(fromPosition);
+        mItems.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     @Override
@@ -70,7 +100,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return mNotes.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements
+            ItemTouchHelperViewHolder {
         @BindView(R.id.note_text)
         TextView mTextView;
         @BindView(R.id.fab)
@@ -79,6 +110,16 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        @Override
+        public void onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY);
+        }
+
+        @Override
+        public void onItemClear() {
+            itemView.setBackgroundColor(0);
         }
     }
 
