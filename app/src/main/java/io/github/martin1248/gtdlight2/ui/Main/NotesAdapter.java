@@ -82,10 +82,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     // See: https://github.com/iPaulPro/Android-ItemTouchHelper-Demo/tree/d8d85c32d579f19718b9bbb97f7a1bda0e616f1f/app/src/main/java/co/paulburke/android/itemtouchhelperdemo
     @Override
     public void onItemDismiss(int position) {
-        //mItems.remove(position);
-        //notesAdapterDelegate.setNoteToStateTrash(position);
-        //notifyItemRemoved(position);
-        Log.i("GtdLight", "onItemDismiss: Nothing is done");
+        notesAdapterDelegate.setNoteToStateTrash(position);
+        notifyItemRemoved(position);
     }
 
     @Override
@@ -127,7 +125,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     public interface INotesAdapterDelegate
     {
         void setNoteToStateDone(int position);
-        //void setNoteToStateTrash(int position);
+        void setNoteToStateTrash(int position);
     }
 
     public void setNotesAdapterDelegate(INotesAdapterDelegate listener)

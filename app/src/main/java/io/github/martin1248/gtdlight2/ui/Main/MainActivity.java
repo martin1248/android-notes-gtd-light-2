@@ -114,4 +114,9 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.INot
         //reloadData();
         //mAdapter.notifyDataSetChanged(); // This is a good practice but recyclerview is updated by reloadData already
     }
+
+    @Override
+    public void setNoteToStateTrash(int position) {
+
+    }
 }

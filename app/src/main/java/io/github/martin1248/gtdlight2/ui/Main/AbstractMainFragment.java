@@ -136,6 +136,13 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
         mViewModel.saveNote(note);
     }
 
+    @Override
+    public void setNoteToStateTrash(int position) {
+        NoteEntity note = notesData.get(position);
+        note.setState(GtdState.states.indexOf(GtdState.TRASH));
+        mViewModel.saveNote(note);
+    }
+
     public void setGtdContext(GtdContext mGtdContext) {
         mViewScope = VIEW_SCOPE_CONTEXT;
         this.mGtdContext = mGtdContext;
