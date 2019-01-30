@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.a_ui_controller.Main;
+package io.github.martin1248.gtdlight2.ui.Main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,9 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.martin1248.gtdlight2.R;
-import io.github.martin1248.gtdlight2.a_ui_controller.Editor.EditorActivity;
-import io.github.martin1248.gtdlight2.utilities.GtdContext;
-import io.github.martin1248.gtdlight2.utilities.GtdState;
+import io.github.martin1248.gtdlight2.ui.Editor.EditorActivity;
 
 public class MainFragActivity extends AppCompatActivity {
 

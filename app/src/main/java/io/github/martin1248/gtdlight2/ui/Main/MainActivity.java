@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.a_ui_controller.Main;
+package io.github.martin1248.gtdlight2.ui.Main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,10 +19,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.martin1248.gtdlight2.R;
-import io.github.martin1248.gtdlight2.a_ui_controller.Editor.EditorActivity;
-import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.ui.Editor.EditorActivity;
+import io.github.martin1248.gtdlight2.database.internal.NoteEntity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
-import io.github.martin1248.gtdlight2.b_viewmodel_livedata.MainViewModel;
+import io.github.martin1248.gtdlight2.viewmodel.MainViewModel;
 
 import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KEY;
 

@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.c_database;
+package io.github.martin1248.gtdlight2.database;
 
 import android.content.Context;
 
@@ -7,8 +7,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import androidx.lifecycle.LiveData;
-import io.github.martin1248.gtdlight2.c_database.internal.AppDatabase;
-import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.database.internal.AppDatabase;
+import io.github.martin1248.gtdlight2.database.internal.NoteEntity;
 import io.github.martin1248.gtdlight2.utilities.SampleData;
 
 public class AppRepository {

@@ -1,4 +1,4 @@
-package io.github.martin1248.gtdlight2.a_ui_controller.Start;
+package io.github.martin1248.gtdlight2.ui.Start;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.martin1248.gtdlight2.R;
-import io.github.martin1248.gtdlight2.a_ui_controller.Editor.EditorActivity;
+import io.github.martin1248.gtdlight2.ui.Editor.EditorActivity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 
 public class StartActivity extends AppCompatActivity {

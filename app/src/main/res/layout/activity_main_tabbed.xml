@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".a_ui_controller.Main.MainTabbedActivity">
+    tools:context=".ui.Main.MainTabbedActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"

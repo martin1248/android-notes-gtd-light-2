@@ -11,9 +11,9 @@ import org.junit.runner.RunWith;
 import androidx.room.Room;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
-import io.github.martin1248.gtdlight2.c_database.internal.AppDatabase;
-import io.github.martin1248.gtdlight2.c_database.internal.NoteDao;
-import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.database.internal.AppDatabase;
+import io.github.martin1248.gtdlight2.database.internal.NoteDao;
+import io.github.martin1248.gtdlight2.database.internal.NoteEntity;
 import io.github.martin1248.gtdlight2.utilities.SampleData;
 
 import static org.junit.Assert.*;

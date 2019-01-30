@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".a_ui_controller.Start.StartActivity"
+            android:name=".ui.Start.StartActivity"
             android:label="@string/title_activity_start"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,40 +20,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".a_ui_controller.Main.MainActivity"
+            android:name=".ui.Main.MainActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".a_ui_controller.Start.StartActivity"
+            android:parentActivityName=".ui.Start.StartActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.martin1248.gtdlight2.a_ui_controller.Start.StartActivity" />
+                android:value="io.github.martin1248.gtdlight2.ui.Start.StartActivity" />
         </activity>
         <activity
-            android:name=".a_ui_controller.Main.MainFragActivity"
+            android:name=".ui.Main.MainFragActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".a_ui_controller.Start.StartActivity"
+            android:parentActivityName=".ui.Start.StartActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.martin1248.gtdlight2.a_ui_controller.Start.StartActivity" />
+                android:value="io.github.martin1248.gtdlight2.ui.Start.StartActivity" />
         </activity>
         <activity
-            android:name=".a_ui_controller.Editor.EditorActivity"
+            android:name=".ui.Editor.EditorActivity"
             android:label="@string/title_activity_editor"
-            android:parentActivityName=".a_ui_controller.Main.MainActivity"
+            android:parentActivityName=".ui.Main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.martin1248.gtdlight2.a_ui_controller.Main.MainActivity" />
+                android:value="io.github.martin1248.gtdlight2.ui.Main.MainActivity" />
         </activity>
         <activity
-            android:name=".a_ui_controller.Main.MainTabbedActivity"
+            android:name=".ui.Main.MainTabbedActivity"
             android:label="@string/title_activity_main_tabbed"
-            android:parentActivityName=".a_ui_controller.Start.StartActivity"
+            android:parentActivityName=".ui.Start.StartActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.martin1248.gtdlight2.a_ui_controller.Start.StartActivity" />
+                android:value="io.github.martin1248.gtdlight2.ui.Start.StartActivity" />
         </activity>
 
         <!-- We'll need to add two entries to our manifest for our collection view widget -->

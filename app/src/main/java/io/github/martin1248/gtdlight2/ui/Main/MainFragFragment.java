@@ -1,9 +1,8 @@
-package io.github.martin1248.gtdlight2.a_ui_controller.Main;
+package io.github.martin1248.gtdlight2.ui.Main;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -22,8 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.R;
-import io.github.martin1248.gtdlight2.b_viewmodel_livedata.MainViewModel;
-import io.github.martin1248.gtdlight2.c_database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.viewmodel.MainViewModel;
+import io.github.martin1248.gtdlight2.database.internal.NoteEntity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 
 public class MainFragFragment extends Fragment implements NotesAdapter.ICheckButtonListener {

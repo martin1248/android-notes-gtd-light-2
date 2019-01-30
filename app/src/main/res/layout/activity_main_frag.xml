@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".a_ui_controller.Main.MainActivity">
+    tools:context=".ui.Main.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:popupTheme="@style/AppTheme.NoActionBar"
-        tools:context=".a_ui_controller.Main.MainFragActivity" />
+        tools:context=".ui.Main.MainFragActivity" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
