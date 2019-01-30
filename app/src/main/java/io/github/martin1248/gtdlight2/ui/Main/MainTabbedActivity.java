@@ -128,7 +128,7 @@ public class MainTabbedActivity extends AppCompatActivity {
             View view = super.onCreateView(inflater, container, savedInstanceState);
             view.setBackgroundColor(Color.parseColor("#fafafa"));
 
-            setGtdContext(GtdContext.contexts.get(getArguments().getInt(ARG_SECTION_POSITION))); // TODO: has to be set after onCreateView
+            setGtdContext(GtdContext.contexts.get(getArguments().getInt(ARG_SECTION_POSITION))); // Note: has to be set after super.onCreateView
 
             return view;
         }

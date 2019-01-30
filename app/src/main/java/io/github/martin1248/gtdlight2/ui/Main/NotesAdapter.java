@@ -33,17 +33,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     private final Context mContext;
     private INotesAdapterDelegate notesAdapterDelegate;
 
-    //TODO
-    private static final String[] STRINGS = new String[]{
-            "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"
-    };
-
-    private final List<String> mItems = new ArrayList<>();
-
     public NotesAdapter(List<NoteEntity> mNotes, Context mContext) {
         this.mNotes = mNotes;
         this.mContext = mContext;
-        mItems.addAll(Arrays.asList(STRINGS));
     }
 
     @NonNull
