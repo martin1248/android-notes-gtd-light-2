@@ -29,6 +29,15 @@
                 android:value="io.github.martin1248.gtdlight2.a_ui_controller.Start.StartActivity" />
         </activity>
         <activity
+            android:name=".a_ui_controller.Main.MainFragActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".a_ui_controller.Start.StartActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.martin1248.gtdlight2.a_ui_controller.Start.StartActivity" />
+        </activity>
+        <activity
             android:name=".a_ui_controller.Editor.EditorActivity"
             android:label="@string/title_activity_editor"
             android:parentActivityName=".a_ui_controller.Main.MainActivity"
@@ -49,9 +58,12 @@
 
         <!-- We'll need to add two entries to our manifest for our collection view widget -->
 
-        <!-- 1. The broadcast receiver that refers to our widget. This needs the
+
+        <!--
+             1. The broadcast receiver that refers to our widget. This needs the
                 intent-filter android.appwidget.action.APPWIDGET_UPDATE and the
-                meta-data for our XML widget configuration -->
+                meta-data for our XML widget configuration
+        -->
         <receiver android:name=".widget.CollectionWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -62,9 +74,12 @@
                 android:resource="@xml/widget_info_collection" />
         </receiver>
 
-        <!-- 2. The service that will send our collection data to our widget. It needs the
-                permission android.permission.BIND_REMOTEVIEWS -->
-        <service android:name=".widget.WidgetService"
+        <!--
+             2. The service that will send our collection data to our widget. It needs the
+                permission android.permission.BIND_REMOTEVIEWS
+        -->
+        <service
+            android:name=".widget.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
