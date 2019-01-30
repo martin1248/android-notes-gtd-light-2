@@ -17,24 +17,14 @@ import io.github.martin1248.gtdlight2.utilities.GtdState;
 public class MainViewModel extends AndroidViewModel {
 
     public List<LiveData<List<NoteEntity>>> mNotesByStates;
+    public List<LiveData<List<NoteEntity>>> mNotesByContextForNextA;
     private AppRepository mRepository;
-    private Executor executor;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
 
         mRepository = AppRepository.getInstance(application.getApplicationContext());
-        executor = mRepository.getExecutor();
-
         mNotesByStates = mRepository.mNotesByStates;
+        mNotesByContextForNextA = mRepository.mNotesByContextForNextA;
     }
-
-    public void addSampleData() {
-        mRepository.addSampleData();
-    }
-
-    public void deleteAllNotes() {
-        mRepository.deleteAllNotes();
-    }
-
 }

@@ -98,7 +98,11 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
         };
 
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        mViewModel.mNotesByStates.get(GtdState.states.indexOf(mGtdState)).observe(this, notesObserver);
+        if (mIsGtdContextAware) {
+            mViewModel.mNotesByContextForNextA.get(GtdContext.contexts.indexOf(mGtdContext)).observe(this, notesObserver);
+        } else {
+            mViewModel.mNotesByStates.get(GtdState.states.indexOf(mGtdState)).observe(this, notesObserver);
+        }
     }
 
     private void initRecyclerView() {
@@ -110,8 +114,6 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
                 mRecyclerView.getContext(), layoutManager.getOrientation());
         mRecyclerView.addItemDecoration(divider);
     }
-
-
 
     @Override
     public void setNoteToStateDone(int position) {

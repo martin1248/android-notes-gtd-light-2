@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 import androidx.lifecycle.LiveData;
 import io.github.martin1248.gtdlight2.database.internal.AppDatabase;
 import io.github.martin1248.gtdlight2.database.internal.NoteEntity;
+import io.github.martin1248.gtdlight2.utilities.GtdContext;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 import io.github.martin1248.gtdlight2.utilities.SampleData;
 
@@ -18,6 +19,7 @@ public class AppRepository {
     private static AppRepository ourInstance;
 
     public List<LiveData<List<NoteEntity>>> mNotesByStates;
+    public List<LiveData<List<NoteEntity>>> mNotesByContextForNextA;
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();
 
@@ -35,6 +37,13 @@ public class AppRepository {
         for (GtdState state : GtdState.states) {
             mNotesByStates.add(getAllNotesWithState(GtdState.states.indexOf(state)));
         }
+
+        mNotesByContextForNextA = new ArrayList<>();
+        for (GtdContext gtdContext : GtdContext.contexts) {
+            mNotesByContextForNextA.add(getAllNotesWithStateAndContext(
+                    GtdState.states.indexOf(GtdState.NEXT_ACTIONS),
+                    GtdContext.contexts.indexOf(gtdContext)));
+        }
     }
 
     public void addSampleData() {
@@ -47,6 +56,10 @@ public class AppRepository {
 
     private LiveData<List<NoteEntity>> getAllNotesWithState(int state) {
         return mDb.noteDao().getAllWithState(state);
+    }
+
+    private LiveData<List<NoteEntity>> getAllNotesWithStateAndContext(int state, int context) {
+        return mDb.noteDao().getAllWithStateAndContext(state, context);
     }
 
     public void deleteAllNotes() {
@@ -74,9 +87,4 @@ public class AppRepository {
             }
         });
     }
-
-    public Executor getExecutor() {
-        return executor;
-    }
-
 }
