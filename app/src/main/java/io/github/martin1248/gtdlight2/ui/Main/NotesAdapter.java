@@ -51,7 +51,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     // Is called each time when I want to update the display of a list item
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final NoteEntity note = mNotes.get(position);
-        holder.mTextView.setText(note.getText() + " #Ord:" + note.getListOrder());
+        holder.mTextView.setText(note.getText());
 
         holder.mFab.setOnClickListener(new View.OnClickListener() {
             @Override
