@@ -42,7 +42,7 @@ public class EditorViewModel extends AndroidViewModel {
             if (TextUtils.isEmpty(noteText.trim())) {
                 return;
             }
-            note = new NoteEntity(new Date(), noteText.trim(), noteState, noteContext);
+            note = new NoteEntity(new Date(), noteText.trim(), noteState, noteContext, 0);
         } else {
             // Existing/Editing note
             note.setText(noteText.trim());

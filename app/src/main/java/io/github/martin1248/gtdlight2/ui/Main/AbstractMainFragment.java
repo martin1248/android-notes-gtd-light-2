@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -47,6 +48,7 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
     private GtdContext mGtdContext;
     private int mLayoutResource;
     private ItemTouchHelper mItemTouchHelper;
+    private boolean itemsWereMoved = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -141,6 +143,23 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
         NoteEntity note = notesData.get(position);
         note.setState(GtdState.states.indexOf(GtdState.TRASH));
         mViewModel.saveNote(note);
+    }
+
+    @Override
+    public void moveNote(int fromPosition, int toPosition) {
+        itemsWereMoved = true;
+    }
+
+    @Override
+    public void onDestroyView() {
+        if(itemsWereMoved) {
+            int newListOrder = notesData.size();
+            for (NoteEntity note : notesData) {
+                note.setListOrder(newListOrder--);
+                mViewModel.saveNote(note); // Note: Performance Issue?
+            }
+        }
+        super.onDestroyView();
     }
 
     public void setGtdContext(GtdContext mGtdContext) {

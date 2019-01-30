@@ -14,26 +14,29 @@ public class NoteEntity {
     private String text;
     private int state;
     private int context;
+    private int listOrder;
 
     @Ignore
     public NoteEntity() {
 
     }
 
-    public NoteEntity(int id, Date date, String text, int state, int context) {
+    public NoteEntity(int id, Date date, String text, int state, int context, int listOrder) {
         this.id = id;
         this.date = date;
         this.text = text;
         this.state = state;
         this.context = context;
+        this.listOrder = listOrder;
     }
 
     @Ignore
-    public NoteEntity(Date date, String text, int state, int context) {
+    public NoteEntity(Date date, String text, int state, int context, int listOrder) {
         this.date = date;
         this.text = text;
         this.state = state;
         this.context = context;
+        this.listOrder = listOrder;
     }
 
     public int getId() {
@@ -68,6 +71,10 @@ public class NoteEntity {
 
     public void setContext(int context) { this.context = context; }
 
+    public int getListOrder() { return listOrder; }
+
+    public void setListOrder(int listOrder) { this.listOrder = listOrder; }
+
     @Override
     public String toString() {
         return "NoteEntity{" +
@@ -76,6 +83,7 @@ public class NoteEntity {
                 ", text='" + text + '\'' +
                 ", state=" + state +
                 ", context=" + context +
+                ", listOrder=" + listOrder +
                 '}';
     }
 }

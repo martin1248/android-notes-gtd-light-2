@@ -51,7 +51,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     // Is called each time when I want to update the display of a list item
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final NoteEntity note = mNotes.get(position);
-        holder.mTextView.setText(note.getText());
+        holder.mTextView.setText(note.getText() + " #Ord:" + note.getListOrder());
 
         holder.mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,10 +80,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        //String prev = mItems.remove(fromPosition);
-        //mItems.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
-        //notifyItemMoved(fromPosition, toPosition);
-        Log.i("GtdLight", "onItemMove: Nothing is done");
+        NoteEntity prev = mNotes.remove(fromPosition);
+        mNotes.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
+
+        notesAdapterDelegate.moveNote(fromPosition, toPosition);
+
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     @Override
@@ -118,6 +120,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     {
         void setNoteToStateDone(int position);
         void setNoteToStateTrash(int position);
+        void moveNote(int fromPosition, int toPosition);
     }
 
     public void setNotesAdapterDelegate(INotesAdapterDelegate listener)

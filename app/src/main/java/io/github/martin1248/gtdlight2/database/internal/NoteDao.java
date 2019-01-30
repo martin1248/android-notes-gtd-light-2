@@ -26,13 +26,13 @@ public interface NoteDao {
     @Query("SELECT * FROM notes WHERE id = :id")
     NoteEntity getNoteById(int id);
 
-    @Query("SELECT * FROM notes ORDER BY date DESC")
+    @Query("SELECT * FROM notes ORDER BY listOrder DESC, date DESC")
     LiveData<List<NoteEntity>> getAll();
 
-    @Query("SELECT * FROM notes WHERE state = :state ORDER BY date DESC")
+    @Query("SELECT * FROM notes WHERE state = :state ORDER BY listOrder DESC, date DESC")
     LiveData<List<NoteEntity>> getAllWithState(int state);
 
-    @Query("SELECT * FROM notes WHERE state = :state AND context = :context ORDER BY date DESC")
+    @Query("SELECT * FROM notes WHERE state = :state AND context = :context ORDER BY listOrder DESC, date DESC")
     LiveData<List<NoteEntity>> getAllWithStateAndContext(int state, int context);
 
     @Query("DELETE FROM notes")
