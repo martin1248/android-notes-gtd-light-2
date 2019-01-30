@@ -131,14 +131,9 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
 
     @Override
     public void setNoteToStateDone(int position) {
-        Log.i("GtdLight", "setNoteToStateDone: TODO");
-        /*
-        New
-        NoteEntity note =  notesData.get(position);
-        mViewModel setToDone(note)
-
-                Current
-        mViewModel.setNoteToDone(position);;*/
+        NoteEntity note = notesData.get(position);
+        note.setState(GtdState.states.indexOf(GtdState.DONE));
+        mViewModel.saveNote(note);
     }
 
     public void setGtdContext(GtdContext mGtdContext) {

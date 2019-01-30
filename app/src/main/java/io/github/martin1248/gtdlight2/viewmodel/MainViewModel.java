@@ -1,8 +1,10 @@
 package io.github.martin1248.gtdlight2.viewmodel;
 
 import android.app.Application;
+import android.text.TextUtils;
 import android.util.Log;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -28,5 +30,9 @@ public class MainViewModel extends AndroidViewModel {
         mNotes = mRepository.mNotes;
         mNotesByStates = mRepository.mNotesByStates;
         mNotesByContextForNextA = mRepository.mNotesByContextForNextA;
+    }
+
+    public void saveNote(NoteEntity note) {
+        mRepository.insertNote(note);
     }
 }
