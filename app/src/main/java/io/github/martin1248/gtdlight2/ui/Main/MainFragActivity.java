@@ -45,48 +45,4 @@ public class MainFragActivity extends AppCompatActivity {
         GtdState gtdState = GtdState.states.get(extras.getInt(GTD_STATE_ID_KEY));
         setTitle(gtdState.toString());
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        else if (id == R.id.action_add_sample_data) {
-            addSampleData();
-            reloadData();
-            return true;
-        } else if (id == R.id.action_delete_all) {
-            deleteAllNotes();
-            reloadData();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void deleteAllNotes() {
-        //mViewModel.deleteAllNotes();
-    }
-
-    private void addSampleData() {
-        //mViewModel.addSampleData();
-    }
-
-    public void reloadData() {
-        //mViewModel.loadData(GtdState.states.indexOf(mGtdState));
-    }
 }
