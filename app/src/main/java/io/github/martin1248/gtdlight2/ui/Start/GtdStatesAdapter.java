@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.R;
+import io.github.martin1248.gtdlight2.ui.Main.AbstractMainFragment;
 import io.github.martin1248.gtdlight2.ui.Main.MainActivity;
 import io.github.martin1248.gtdlight2.ui.Main.MainFragActivity;
 import io.github.martin1248.gtdlight2.ui.Main.MainTabbedActivity;
@@ -44,28 +45,41 @@ public class GtdStatesAdapter extends RecyclerView.Adapter<GtdStatesAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull GtdStatesAdapter.ViewHolder holder, int position) {
-        final GtdState gtdState = mGtdStates.get(position);
-        holder.mTextView.setText(gtdState.toString());
-        holder.mFab.setBackgroundColor(Color.parseColor(gtdState.getColor()));
+        if (position == mGtdStates.size()) {
+            holder.mTextView.setText("All");
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                if (GtdState.NEXT_ACTIONS == gtdState) {
-                    intent = new Intent(mContext, MainTabbedActivity.class);
-                } else {
-                    intent = new Intent(mContext, MainFragActivity.class);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, MainFragActivity.class);
+                    intent.putExtra(GTD_STATE_ID_KEY, AbstractMainFragment.VIEW_ALL_STATES);
+                    mContext.startActivity(intent);
                 }
-                intent.putExtra(GTD_STATE_ID_KEY, GtdState.states.indexOf(gtdState));
-                mContext.startActivity(intent);
-            }
-        });
+            });
+        } else {
+            final GtdState gtdState = mGtdStates.get(position);
+            holder.mTextView.setText(gtdState.toString());
+            holder.mFab.setBackgroundColor(Color.parseColor(gtdState.getColor()));
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent;
+                    if (GtdState.NEXT_ACTIONS == gtdState) {
+                        intent = new Intent(mContext, MainTabbedActivity.class);
+                    } else {
+                        intent = new Intent(mContext, MainFragActivity.class);
+                    }
+                    intent.putExtra(GTD_STATE_ID_KEY, GtdState.states.indexOf(gtdState));
+                    mContext.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mGtdStates.size();
+        return mGtdStates.size() + 1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

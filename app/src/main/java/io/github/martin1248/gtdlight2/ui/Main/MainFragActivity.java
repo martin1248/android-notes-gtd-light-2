@@ -42,7 +42,11 @@ public class MainFragActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Bundle extras = getIntent().getExtras();
-        GtdState gtdState = GtdState.states.get(extras.getInt(GTD_STATE_ID_KEY));
-        setTitle(gtdState.toString());
+        int gtdState = extras.getInt(GTD_STATE_ID_KEY);
+        if (gtdState == AbstractMainFragment.VIEW_ALL_STATES) {
+            setTitle("ALL");
+        } else {
+            setTitle(GtdState.states.get(gtdState).toString());
+        }
     }
 }

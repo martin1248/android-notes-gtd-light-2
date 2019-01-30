@@ -31,6 +31,11 @@ import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KE
 
 public class AbstractMainFragment extends Fragment implements NotesAdapter.INotesAdapterDelegate {
 
+    public static final int VIEW_ALL_STATES = Integer.MAX_VALUE;
+    private static final int VIEW_SCOPE_ALL = 0;
+    private static final int VIEW_SCOPE_STATE = 1;
+    private static final int VIEW_SCOPE_CONTEXT = 2;
+
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
@@ -38,7 +43,7 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
     private NotesAdapter mAdapter;
     private MainViewModel mViewModel;
     private GtdState mGtdState;
-    private boolean mIsGtdContextAware;
+    private int mViewScope;
     private GtdContext mGtdContext;
     private int mLayoutResource;
     private ItemTouchHelper mItemTouchHelper;
@@ -52,7 +57,13 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
         initRecyclerView();
 
         Bundle extras = getActivity().getIntent().getExtras();
-        mGtdState = GtdState.states.get(extras.getInt(GTD_STATE_ID_KEY));
+        int gtdState = extras.getInt(GTD_STATE_ID_KEY);
+        if (gtdState == VIEW_ALL_STATES) {
+            mViewScope = VIEW_SCOPE_ALL;
+        } else {
+            mViewScope = VIEW_SCOPE_STATE;
+            mGtdState = GtdState.states.get(gtdState);
+        }
 
         return rootView;
     }
@@ -98,10 +109,13 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
         };
 
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        if (mIsGtdContextAware) {
+
+        if (mViewScope == VIEW_SCOPE_CONTEXT) {
             mViewModel.mNotesByContextForNextA.get(GtdContext.contexts.indexOf(mGtdContext)).observe(this, notesObserver);
-        } else {
+        } else if (mViewScope == VIEW_SCOPE_STATE) {
             mViewModel.mNotesByStates.get(GtdState.states.indexOf(mGtdState)).observe(this, notesObserver);
+        } else {
+            mViewModel.mNotes.observe(this, notesObserver);
         }
     }
 
@@ -127,11 +141,8 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
         mViewModel.setNoteToDone(position);;*/
     }
 
-    public void setIsGtdContextAware(boolean mIsGtdContextAware) {
-        this.mIsGtdContextAware = mIsGtdContextAware;
-    }
-
     public void setGtdContext(GtdContext mGtdContext) {
+        mViewScope = VIEW_SCOPE_CONTEXT;
         this.mGtdContext = mGtdContext;
     }
 

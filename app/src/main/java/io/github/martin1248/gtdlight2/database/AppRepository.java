@@ -18,6 +18,7 @@ import io.github.martin1248.gtdlight2.utilities.SampleData;
 public class AppRepository {
     private static AppRepository ourInstance;
 
+    public LiveData<List<NoteEntity>> mNotes;
     public List<LiveData<List<NoteEntity>>> mNotesByStates;
     public List<LiveData<List<NoteEntity>>> mNotesByContextForNextA;
     private AppDatabase mDb;
@@ -32,6 +33,8 @@ public class AppRepository {
 
     private AppRepository(Context context) {
         mDb = AppDatabase.getInstance(context);
+
+        mNotes = getAllNotes();
 
         mNotesByStates = new ArrayList<>();
         for (GtdState state : GtdState.states) {

@@ -38,8 +38,6 @@ public class MainFragFragment extends AbstractMainFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setLayoutResource(R.layout.fragment_main_frag);
-        setIsGtdContextAware(false);
-        setGtdContext(GtdContext.NONE);
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }

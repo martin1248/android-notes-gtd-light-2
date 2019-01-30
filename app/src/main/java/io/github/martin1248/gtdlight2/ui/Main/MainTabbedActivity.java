@@ -124,11 +124,11 @@ public class MainTabbedActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             setLayoutResource(R.layout.fragment_main_tabbed);
-            setIsGtdContextAware(true);
-            setGtdContext(GtdContext.contexts.get(getArguments().getInt(ARG_SECTION_POSITION)));
 
             View view = super.onCreateView(inflater, container, savedInstanceState);
             view.setBackgroundColor(Color.parseColor("#fafafa"));
+
+            setGtdContext(GtdContext.contexts.get(getArguments().getInt(ARG_SECTION_POSITION))); // TODO: has to be set after onCreateView
 
             return view;
         }

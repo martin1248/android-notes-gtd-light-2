@@ -16,6 +16,7 @@ import io.github.martin1248.gtdlight2.utilities.GtdState;
 
 public class MainViewModel extends AndroidViewModel {
 
+    public LiveData<List<NoteEntity>> mNotes;
     public List<LiveData<List<NoteEntity>>> mNotesByStates;
     public List<LiveData<List<NoteEntity>>> mNotesByContextForNextA;
     private AppRepository mRepository;
@@ -24,6 +25,7 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
 
         mRepository = AppRepository.getInstance(application.getApplicationContext());
+        mNotes = mRepository.mNotes;
         mNotesByStates = mRepository.mNotesByStates;
         mNotesByContextForNextA = mRepository.mNotesByContextForNextA;
     }
