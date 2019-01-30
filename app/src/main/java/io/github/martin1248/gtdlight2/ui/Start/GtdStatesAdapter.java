@@ -18,7 +18,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.martin1248.gtdlight2.R;
 import io.github.martin1248.gtdlight2.ui.Main.AbstractMainFragment;
-import io.github.martin1248.gtdlight2.ui.Main.MainActivity;
 import io.github.martin1248.gtdlight2.ui.Main.MainFragActivity;
 import io.github.martin1248.gtdlight2.ui.Main.MainTabbedActivity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;

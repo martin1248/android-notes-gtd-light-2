@@ -20,15 +20,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.Main.MainActivity"
-            android:label="@string/app_name"
-            android:parentActivityName=".ui.Start.StartActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.martin1248.gtdlight2.ui.Start.StartActivity" />
-        </activity>
-        <activity
             android:name=".ui.Main.MainFragActivity"
             android:label="@string/app_name"
             android:parentActivityName=".ui.Start.StartActivity"
