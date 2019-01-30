@@ -98,20 +98,12 @@ public class MainTabbedActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment implements NotesAdapter.ICheckButtonListener{
+    public static class PlaceholderFragment extends AbstractMainFragment{
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static final String ARG_SECTION_POSITION = "section_number";
-
-        @BindView(R.id.recycler_view)
-        RecyclerView mRecyclerView;
-
-        private List<NoteEntity> notesData = new ArrayList<>();
-        private NotesAdapter mAdapter;
-        private MainViewModel mViewModel;
-        private int mGtdContext;
 
         public PlaceholderFragment() {
         }
@@ -131,70 +123,14 @@ public class MainTabbedActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main_tabbed, container, false);
+            setLayoutResource(R.layout.fragment_main_tabbed);
+            setIsGtdContextAware(true);
+            setGtdContext(GtdContext.contexts.get(getArguments().getInt(ARG_SECTION_POSITION)));
 
-            ButterKnife.bind(this, rootView);
-            initRecyclerView();
-            initViewModel();
+            View view = super.onCreateView(inflater, container, savedInstanceState);
+            view.setBackgroundColor(Color.parseColor("#fafafa"));
 
-            rootView.setBackgroundColor(Color.parseColor("#fafafa"));
-
-            mGtdContext = getArguments().getInt(ARG_SECTION_POSITION);
-            reloadData();
-
-            return rootView;
-        }
-
-        private void initViewModel() {
-
-            final Observer<List<NoteEntity>> notesObserver = new Observer<List<NoteEntity>>() {
-                @Override
-                public void onChanged(List<NoteEntity> noteEntities) {
-                    notesData.clear();
-                    notesData.addAll(noteEntities);
-
-                    if (mAdapter == null) {
-                        // Note: Also getActivity() is instead possible. See https://stackoverflow.com/questions/32227146/what-is-different-between-getcontext-and-getactivity-from-fragment-in-support-li/32227421
-                        mAdapter = new NotesAdapter(notesData, getContext());
-                        mAdapter.setCheckButtonListener(PlaceholderFragment.this);
-                        mRecyclerView.setAdapter(mAdapter);
-                    } else {
-                        mAdapter.notifyDataSetChanged();
-                    }
-                }
-            };
-
-            mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-
-            mViewModel.getNotes().observe(this, notesObserver);
-        }
-
-        private void initRecyclerView() {
-            mRecyclerView.setHasFixedSize(true);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-            mRecyclerView.setLayoutManager(layoutManager);
-
-            DividerItemDecoration divider = new DividerItemDecoration(
-                    mRecyclerView.getContext(), layoutManager.getOrientation());
-            mRecyclerView.addItemDecoration(divider);
-        }
-
-        public void reloadData() {
-            mViewModel.loadData(GtdState.states.indexOf(GtdState.NEXT_ACTIONS), mGtdContext);
-        }
-
-        @Override
-        public void onCheckButtonClickListener(int position) {
-            mViewModel.setNoteToDone(position);
-            reloadData();
-            //mAdapter.notifyDataSetChanged(); // This is a good practice but recyclerview is updated by reloadData already
-        }
-
-        @Override
-        public void onResume()
-        {  // After a pause OR at startup
-            super.onResume();
-            reloadData();
+            return view;
         }
     }
 

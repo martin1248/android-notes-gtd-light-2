@@ -28,15 +28,7 @@ import io.github.martin1248.gtdlight2.utilities.GtdState;
 
 import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KEY;
 
-public class MainFragFragment extends Fragment implements NotesAdapter.ICheckButtonListener {
-
-    @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
-
-    private List<NoteEntity> notesData = new ArrayList<>();
-    private NotesAdapter mAdapter;
-    private MainViewModel mViewModel;
-    private GtdState mGtdState;
+public class MainFragFragment extends AbstractMainFragment {
 
     public static MainFragFragment newInstance() {
         return new MainFragFragment();
@@ -45,77 +37,10 @@ public class MainFragFragment extends Fragment implements NotesAdapter.ICheckBut
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main_frag, container, false);
+        setLayoutResource(R.layout.fragment_main_frag);
+        setIsGtdContextAware(false);
+        setGtdContext(GtdContext.NONE);
 
-        ButterKnife.bind(this, rootView);
-        initRecyclerView();
-        initViewModel();
-
-        reloadData();
-
-        return rootView;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-    }
-
-    private void initViewModel() {
-
-        final Observer<List<NoteEntity>> notesObserver = new Observer<List<NoteEntity>>() {
-            @Override
-            public void onChanged(List<NoteEntity> noteEntities) {
-                notesData.clear();
-                notesData.addAll(noteEntities);
-
-                if (mAdapter == null) {
-                    // Note: Also getActivity() is instead possible. See https://stackoverflow.com/questions/32227146/what-is-different-between-getcontext-and-getactivity-from-fragment-in-support-li/32227421
-                    mAdapter = new NotesAdapter(notesData, getContext());
-                    mAdapter.setCheckButtonListener(MainFragFragment.this);
-                    mRecyclerView.setAdapter(mAdapter);
-                } else {
-                    mAdapter.notifyDataSetChanged();
-                }
-            }
-        };
-
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-
-        mViewModel.getNotes().observe(this, notesObserver);
-
-        Bundle extras = getActivity().getIntent().getExtras();
-        mGtdState = GtdState.states.get(extras.getInt(GTD_STATE_ID_KEY));
-        // reloadData(); is done afterwards by onResume()
-    }
-
-    private void initRecyclerView() {
-        mRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(layoutManager);
-
-        DividerItemDecoration divider = new DividerItemDecoration(
-                mRecyclerView.getContext(), layoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(divider);
-    }
-
-    public void reloadData() {
-        mViewModel.loadData(GtdState.states.indexOf(mGtdState));
-    }
-
-    @Override
-    public void onCheckButtonClickListener(int position) {
-        mViewModel.setNoteToDone(position);
-        reloadData();
-        //mAdapter.notifyDataSetChanged(); // This is a good practice but recyclerview is updated by reloadData already
-    }
-
-    @Override
-    public void onResume()
-    {  // After a pause OR at startup
-        super.onResume();
-        reloadData();
-    }
-
 }
