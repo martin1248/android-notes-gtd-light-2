@@ -90,8 +90,6 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
                 notesData.clear();
                 notesData.addAll(noteEntities);
 
-                Log.i("GtdLight", "onChanged: observed notes changed. state=" + mGtdState + " returned=" + noteEntities.size());
-
                 if (mAdapter == null) {
                     // Note: Also getActivity() is instead possible. See https://stackoverflow.com/questions/32227146/what-is-different-between-getcontext-and-getactivity-from-fragment-in-support-li/32227421
                     mAdapter = new NotesAdapter(notesData, getContext());
@@ -153,11 +151,14 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
     @Override
     public void onDestroyView() {
         if(itemsWereMoved) {
-            int newListOrder = notesData.size();
-            for (NoteEntity note : notesData) {
+            List<NoteEntity> tmpNotesData = new ArrayList<>();
+            tmpNotesData.addAll(notesData);
+
+            int newListOrder = tmpNotesData.size();
+            for (NoteEntity note : tmpNotesData) {
                 note.setListOrder(newListOrder--);
-                mViewModel.saveNote(note); // Note: Performance Issue?
             }
+            mViewModel.saveNotes(tmpNotesData);
         }
         super.onDestroyView();
     }

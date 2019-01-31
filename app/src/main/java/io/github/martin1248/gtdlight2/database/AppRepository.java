@@ -82,6 +82,17 @@ public class AppRepository {
         });
     }
 
+    public void insertNotes(List<NoteEntity> notes) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                for (NoteEntity note : notes) {
+                    mDb.noteDao().insertNote(note);
+                }
+            }
+        });
+    }
+
     public void deleteNote(NoteEntity note) {
         executor.execute(new Runnable() {
             @Override

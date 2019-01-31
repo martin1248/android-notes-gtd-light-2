@@ -35,4 +35,8 @@ public class MainViewModel extends AndroidViewModel {
     public void saveNote(NoteEntity note) {
         mRepository.insertNote(note);
     }
+
+    public void saveNotes(List<NoteEntity> notes) {
+        mRepository.insertNotes(notes);
+    }
 }
