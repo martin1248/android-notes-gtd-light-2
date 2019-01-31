@@ -89,7 +89,7 @@ public class StartViewModel extends AndroidViewModel {
 
         for (NoteEntity note: notes ) {
             builder.append(note.getId() + ",");
-            builder.append(note.getDate() + ",");
+            builder.append(note.getDate().getTime() + ",");
             builder.append(note.getText() + ",");
             builder.append(note.getState() + ",");
             builder.append(note.getContext() + ",");
