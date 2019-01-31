@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/textViewTODO"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="?attr/actionBarSize"
         android:backgroundTint="@color/colorPrimaryDark"
         android:background="@color/colorPrimaryDark"
         android:text="TODO - Ihave no clue yet so i use this workaround"
