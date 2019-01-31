@@ -80,7 +80,7 @@ public class StartViewModel extends AndroidViewModel {
     public String exportAllNotes() {
         List<NoteEntity> notes = mRepository.mNotes.getValue();
 
-        if (notes.isEmpty()) {
+        if (notes == null) {
             return "No notes found";
         }
 
