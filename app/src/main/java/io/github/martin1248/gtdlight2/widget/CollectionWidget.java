@@ -9,6 +9,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import io.github.martin1248.gtdlight2.R;
 
+import android.util.Log;
 import android.widget.RemoteViews;
 
 /**
@@ -19,7 +20,6 @@ public class CollectionWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_collection);
-//        views.setTextViewText(R.id.appwidget_text, widgetText);
 
         // Set up the collection
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {

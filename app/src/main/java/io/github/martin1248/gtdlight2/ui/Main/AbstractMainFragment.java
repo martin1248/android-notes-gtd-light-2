@@ -1,6 +1,10 @@
 package io.github.martin1248.gtdlight2.ui.Main;
 
 
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProviderInfo;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +31,8 @@ import io.github.martin1248.gtdlight2.ui.Main.ItemTouchHelpers.SimpleItemTouchHe
 import io.github.martin1248.gtdlight2.utilities.GtdContext;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
 import io.github.martin1248.gtdlight2.viewmodel.MainViewModel;
+import io.github.martin1248.gtdlight2.widget.CollectionWidget;
+import io.github.martin1248.gtdlight2.widget.WidgetDataProvider;
 
 import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KEY;
 
@@ -105,6 +111,11 @@ public class AbstractMainFragment extends Fragment implements NotesAdapter.INote
                 ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
                 mItemTouchHelper = new ItemTouchHelper(callback);
                 mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getContext());
+                ComponentName thisAppWidget = new ComponentName(getContext().getPackageName(), CollectionWidget.class.getName());
+                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
+                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list);
             }
         };
 

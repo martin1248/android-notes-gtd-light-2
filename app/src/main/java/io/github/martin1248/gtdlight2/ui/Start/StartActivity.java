@@ -1,9 +1,13 @@
 package io.github.martin1248.gtdlight2.ui.Start;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -88,9 +92,23 @@ public class StartActivity extends AppCompatActivity {
         } else if (id == R.id.action_delete_all) {
             deleteAllNotes();
             return true;
+        } else if (id == R.id.action_export_all) {
+            exportAllNotes();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void exportAllNotes() {
+        String exportAllNotes = mViewModel.exportAllNotes();
+
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("GTDNotes", exportAllNotes);
+        clipboard.setPrimaryClip(clip);
+
+        Toast toast = Toast.makeText(getApplicationContext(),"All notes are now in the Clipboard", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     private void deleteAllNotes() {

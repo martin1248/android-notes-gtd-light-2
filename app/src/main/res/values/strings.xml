@@ -106,4 +106,5 @@
 
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="export_all">Export all</string>
 </resources>

@@ -35,6 +35,9 @@ public interface NoteDao {
     @Query("SELECT * FROM notes WHERE state = :state AND context = :context ORDER BY listOrder DESC, date DESC")
     LiveData<List<NoteEntity>> getAllWithStateAndContext(int state, int context);
 
+    @Query("SELECT * FROM notes WHERE state = :state AND context = :context ORDER BY listOrder DESC, date DESC")
+    List<NoteEntity> getWidgetNotes(int state, int context);
+
     @Query("DELETE FROM notes")
     int deleteAll();
 

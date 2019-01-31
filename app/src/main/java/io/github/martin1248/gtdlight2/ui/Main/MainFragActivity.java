@@ -2,6 +2,8 @@ package io.github.martin1248.gtdlight2.ui.Main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +15,8 @@ import butterknife.OnClick;
 import io.github.martin1248.gtdlight2.R;
 import io.github.martin1248.gtdlight2.ui.Editor.EditorActivity;
 import io.github.martin1248.gtdlight2.utilities.GtdState;
+import io.github.martin1248.gtdlight2.widget.CollectionWidget;
+import io.github.martin1248.gtdlight2.widget.WidgetDataProvider;
 
 import static io.github.martin1248.gtdlight2.utilities.Constants.GTD_STATE_ID_KEY;
 

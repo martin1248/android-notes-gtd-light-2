@@ -33,7 +33,6 @@ public class AppRepository {
 
     private AppRepository(Context context) {
         mDb = AppDatabase.getInstance(context);
-
         mNotes = getAllNotes();
 
         mNotesByStates = new ArrayList<>();
@@ -63,6 +62,10 @@ public class AppRepository {
 
     private LiveData<List<NoteEntity>> getAllNotesWithStateAndContext(int state, int context) {
         return mDb.noteDao().getAllWithStateAndContext(state, context);
+    }
+
+    public List<NoteEntity> getWidgetNotes(int state, int context) {
+        return mDb.noteDao().getWidgetNotes(state, context);
     }
 
     public void deleteAllNotes() {
